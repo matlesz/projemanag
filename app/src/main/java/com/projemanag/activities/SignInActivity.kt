@@ -66,10 +66,8 @@ class SignInActivity : BaseActivity() {
             FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        // TODO (Step 2: Remove the toast message and call the FirestoreClass signInUser function to get the data of user from database. And also move the code of hiding Progress Dialog and Launching MainActivity to Success function.)
                         // Calling the FirestoreClass signInUser function to get the data of user from database.
                         FirestoreClass().signInUser(this@SignInActivity)
-                        // END
                     } else {
                         Toast.makeText(
                             this@SignInActivity,
@@ -96,8 +94,6 @@ class SignInActivity : BaseActivity() {
         }
     }
 
-    // TODO (Step 4: Create a function to get the user details from the firestore database after authentication.)
-    // START
     /**
      * A function to get the user details from the firestore database after authentication.
      */
@@ -106,7 +102,6 @@ class SignInActivity : BaseActivity() {
         hideProgressDialog()
 
         startActivity(Intent(this@SignInActivity, MainActivity::class.java))
-        finish()
+        this.finish()
     }
-    // END
 }

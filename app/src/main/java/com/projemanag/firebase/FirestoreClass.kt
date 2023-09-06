@@ -41,8 +41,6 @@ class FirestoreClass {
             }
     }
 
-    // TODO (Step 1: Create a function to SignIn using firebase and get the user details from Firestore Database.)
-    // START
     /**
      * A function to SignIn using firebase and get the user details from Firestore Database.
      */
@@ -58,14 +56,11 @@ class FirestoreClass {
                     activity.javaClass.simpleName, document.toString()
                 )
 
-                // TODO (STEP 3: Pass the result to base activity.)
-                // START
                 // Here we have received the document snapshot which is converted into the User Data model object.
                 val loggedInUser = document.toObject(User::class.java)!!
 
                 // Here call a function of base activity for transferring the result to it.
                 activity.signInSuccess(loggedInUser)
-                // END
             }
             .addOnFailureListener { e ->
                 Log.e(
@@ -75,12 +70,23 @@ class FirestoreClass {
                 )
             }
     }
-    // END
 
     /**
      * A function for getting the user id of current logged user.
      */
     fun getCurrentUserID(): String {
-        return FirebaseAuth.getInstance().currentUser!!.uid
+        // TODO (Step 1: Return the user id if he is already logged in before or else it will be blank.)
+        // START
+        // An Instance of currentUser using FirebaseAuth
+        val currentUser = FirebaseAuth.getInstance().currentUser
+
+        // A variable to assign the currentUserId if it is not null or else it will be blank.
+        var currentUserID = ""
+        if (currentUser != null) {
+            currentUserID = currentUser.uid
+        }
+
+        return currentUserID
+        // END
     }
 }
