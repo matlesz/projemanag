@@ -3,13 +3,11 @@ package com.projemanag.dialogs
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.projemanag.R
 import com.projemanag.adapters.MemberListItemsAdapter
-import com.projemanag.model.User
-import kotlinx.android.synthetic.main.dialog_list.view.*
+import com.projemanag.databinding.DialogListBinding
+import com.projemanag.models.User
+
 
 abstract class MembersListDialog(
     context: Context,
@@ -18,26 +16,26 @@ abstract class MembersListDialog(
 ) : Dialog(context) {
 
     private var adapter: MemberListItemsAdapter? = null
+    private lateinit var binding: DialogListBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState ?: Bundle())
+        binding = DialogListBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        val view = LayoutInflater.from(context).inflate(R.layout.dialog_list, null)
-
-        setContentView(view)
         setCanceledOnTouchOutside(true)
         setCancelable(true)
-        setUpRecyclerView(view)
+        setUpRecyclerView()
     }
 
-    private fun setUpRecyclerView(view: View) {
-        view.tvTitle.text = title
+    private fun setUpRecyclerView() {
+        binding.tvTitle.text = title
 
         if (list.size > 0) {
 
-            view.rvList.layoutManager = LinearLayoutManager(context)
+            binding.rvList.layoutManager = LinearLayoutManager(context)
             adapter = MemberListItemsAdapter(context, list)
-            view.rvList.adapter = adapter
+            binding.rvList.adapter = adapter
 
             adapter!!.setOnClickListener(object :
                 MemberListItemsAdapter.OnClickListener {
@@ -50,4 +48,5 @@ abstract class MembersListDialog(
     }
 
     protected abstract fun onItemSelected(user: User, action:String)
+
 }

@@ -36,5 +36,7 @@
             android:layout_gravity="end"
             android:visibility="gone"
             tools:visibility="visible" />
+
     </LinearLayout>
+
 </androidx.cardview.widget.CardView>

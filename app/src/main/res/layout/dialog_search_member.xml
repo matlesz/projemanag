@@ -47,6 +47,7 @@
                     android:hint="@string/email"
                     android:inputType="textEmailAddress"
                     android:textSize="@dimen/et_text_size" />
+
             </com.google.android.material.textfield.TextInputLayout>
 
             <LinearLayout
@@ -78,7 +79,11 @@
                     android:text="@string/cancel"
                     android:textColor="@color/secondary_text_color"
                     android:textSize="@dimen/member_dialog_action_button_text_size" />
+
             </LinearLayout>
+
         </LinearLayout>
+
     </androidx.cardview.widget.CardView>
+
 </FrameLayout>

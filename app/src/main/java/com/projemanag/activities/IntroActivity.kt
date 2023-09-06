@@ -4,42 +4,35 @@ import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
 import android.view.WindowManager
-import androidx.appcompat.app.AppCompatActivity
-import com.projemanag.R
-import kotlinx.android.synthetic.main.activity_intro.*
+import com.projemanag.databinding.ActivityIntroBinding
 
-class IntroActivity : AppCompatActivity() {
+class IntroActivity : BaseActivity() {
 
-    /**
-     * This function is auto created by Android when the Activity Class is created.
-     */
+    private lateinit var binding: ActivityIntroBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
-        //This call the parent constructor
         super.onCreate(savedInstanceState)
-        // This is used to align the xml view to this class
-        setContentView(R.layout.activity_intro)
+        binding = ActivityIntroBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        // This is used to hide the status bar and make the splash screen as a full screen activity.
+        initialize()
+    }
+
+    private fun initialize(){
         window.setFlags(
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
 
-        // This is used to get the file from the assets folder and set it to the title textView.
-        val typeface: Typeface =
-            Typeface.createFromAsset(assets, "carbon bl.ttf")
-        tv_app_name_intro.typeface = typeface
+        binding.tvAppNameIntro.typeface = Typeface.createFromAsset(assets, "carbon bl.ttf")
 
-        btn_sign_in_intro.setOnClickListener {
-
-            // Launch the sign in screen.
+        binding.btnSignInIntro.setOnClickListener {
             startActivity(Intent(this@IntroActivity, SignInActivity::class.java))
         }
 
-        btn_sign_up_intro.setOnClickListener {
-
-            // Launch the sign up screen.
+        binding.btnSignUpIntro.setOnClickListener {
             startActivity(Intent(this@IntroActivity, SignUpActivity::class.java))
         }
     }
+
 }

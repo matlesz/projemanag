@@ -6,9 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.projemanag.R
-import kotlinx.android.synthetic.main.item_label_color.view.*
+import com.projemanag.databinding.ItemLabelColorBinding
 import java.util.*
+
 
 class LabelColorListItemsAdapter(
     private val context: Context,
@@ -20,11 +20,7 @@ class LabelColorListItemsAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return MyViewHolder(
-            LayoutInflater.from(context).inflate(
-                R.layout.item_label_color,
-                parent,
-                false
-            )
+            ItemLabelColorBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         )
     }
 
@@ -32,17 +28,16 @@ class LabelColorListItemsAdapter(
         val item = list[position]
 
         if (holder is MyViewHolder) {
-
-            holder.itemView.view_main.setBackgroundColor(Color.parseColor(item))
+            holder.viewMain.setBackgroundColor(Color.parseColor(item))
 
             if (item == mSelectedColor) {
-                holder.itemView.iv_selected_color.visibility = View.VISIBLE
-            } else {
-                holder.itemView.iv_selected_color.visibility = View.GONE
+                holder.ivSelectedColor.visibility = View.VISIBLE
+            }
+            else {
+                holder.ivSelectedColor.visibility = View.GONE
             }
 
             holder.itemView.setOnClickListener {
-
                 if (onItemClickListener != null) {
                     onItemClickListener!!.onClick(position, item)
                 }
@@ -54,10 +49,14 @@ class LabelColorListItemsAdapter(
         return list.size
     }
 
-    private class MyViewHolder(view: View) : RecyclerView.ViewHolder(view)
+    private class MyViewHolder(binding: ItemLabelColorBinding) : RecyclerView.ViewHolder(binding.root){
+        var viewMain = binding.viewMain
+        var ivSelectedColor = binding.ivSelectedColor
+    }
 
     interface OnItemClickListener {
 
         fun onClick(position: Int, color: String)
     }
+
 }

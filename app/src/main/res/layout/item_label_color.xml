@@ -23,4 +23,5 @@
         android:src="@drawable/ic_vector_white_done_24dp"
         android:visibility="gone"
         tools:visibility="visible" />
+
 </FrameLayout>
