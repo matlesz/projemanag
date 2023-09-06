@@ -129,7 +129,6 @@
                     android:layout_marginTop="@dimen/card_details_value_marginTop"
                     android:padding="@dimen/card_details_value_padding"
                     android:text="@string/select_due_date"
-                    android:textSize="@dimen/et_text_size"
                     android:textColor="@color/primary_text_color" />
 
                 <Button

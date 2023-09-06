@@ -3,8 +3,6 @@ package com.projemanag.model
 import android.os.Parcel
 import android.os.Parcelable
 
-// TODO (Step 1: Add a field for due date.)
-// START
 data class Card(
     val name: String = "",
     val createdBy: String = "",
@@ -38,4 +36,3 @@ data class Card(
         }
     }
 }
-// END

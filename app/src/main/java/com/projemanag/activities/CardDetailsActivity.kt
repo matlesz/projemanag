@@ -22,7 +22,6 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
-
 class CardDetailsActivity : BaseActivity() {
 
     // A global variable for board details
@@ -35,12 +34,8 @@ class CardDetailsActivity : BaseActivity() {
     private var mSelectedColor: String = ""
     // A global variable for Assigned Members List.
     private lateinit var mMembersDetailList: ArrayList<User>
-
-    // TODO (Step 2: Add a global variable for due date.)
-    // START
     // A global variable for selected due date
     private var mSelectedDueDateMilliSeconds: Long = 0
-    // END
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,7 +63,6 @@ class CardDetailsActivity : BaseActivity() {
             membersListDialog()
         }
 
-        // TODO (Step 6: Set the due to if it is already selected before.)
         mSelectedDueDateMilliSeconds =
             mBoardDetails.taskList[mTaskListPosition].cards[mCardPosition].dueDate
         if (mSelectedDueDateMilliSeconds > 0) {
@@ -76,15 +70,11 @@ class CardDetailsActivity : BaseActivity() {
             val selectedDate = simpleDateFormat.format(Date(mSelectedDueDateMilliSeconds))
             tv_select_due_date.text = selectedDate
         }
-        // END
 
-        // TODO (Step 4: Add click event for selecting the due date.)
-        // START
         tv_select_due_date.setOnClickListener {
 
             showDataPicker()
         }
-        // END
 
         btn_update_card_details.setOnClickListener {
             if (et_name_card_details.text.toString().isNotEmpty()) {
@@ -164,8 +154,6 @@ class CardDetailsActivity : BaseActivity() {
      */
     private fun updateCardDetails() {
 
-        // TODO (Step 5: Pass the selected due date using the data model class for inserting it into the database.)
-        // START
         // Here we have updated the card name using the data model class.
         val card = Card(
             et_name_card_details.text.toString(),
@@ -174,7 +162,6 @@ class CardDetailsActivity : BaseActivity() {
             mSelectedColor,
             mSelectedDueDateMilliSeconds
         )
-        // END
 
         val taskList: ArrayList<Task> = mBoardDetails.taskList
         taskList.removeAt(taskList.size - 1)
@@ -393,8 +380,6 @@ class CardDetailsActivity : BaseActivity() {
         }
     }
 
-    // TODO (Step 3: Create a function to show date picker dialog and select the due date.)
-    // START
     /**
      * The function to show the DatePicker Dialog and select the due date.
      */
@@ -440,11 +425,19 @@ class CardDetailsActivity : BaseActivity() {
                  * selected date in the format which we pass it as an parameter and Locale.
                  * Here I have passed the format as dd/MM/yyyy.
                  */
+                /**
+                 * Here we have taken an instance of Date Formatter as it will format our
+                 * selected date in the format which we pass it as an parameter and Locale.
+                 * Here I have passed the format as dd/MM/yyyy.
+                 */
                 val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH)
 
                 // The formatter will parse the selected date in to Date object
                 // so we can simply get date in to milliseconds.
                 val theDate = sdf.parse(selectedDate)
+
+                /** Here we have get the time in milliSeconds from Date object
+                 */
 
                 /** Here we have get the time in milliSeconds from Date object
                  */
@@ -456,5 +449,4 @@ class CardDetailsActivity : BaseActivity() {
         )
         dpd.show() // It is used to show the datePicker Dialog.
     }
-    // END
 }
