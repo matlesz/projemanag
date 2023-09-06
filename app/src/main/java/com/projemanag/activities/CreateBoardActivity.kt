@@ -29,11 +29,8 @@ class CreateBoardActivity : BaseActivity() {
     // A global variable for Username
     private lateinit var mUserName: String
 
-    // TODO (Step 1: Create a global variable for the Board image URL.)
-    // START
     // A global variable for a board image URL
     private var mBoardImageURL: String = ""
-    // END
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,7 +60,6 @@ class CreateBoardActivity : BaseActivity() {
             }
         }
 
-        // TODO (Step 4: Add a click event for btn_create.)
         btn_create.setOnClickListener {
 
                 // Here if the image is not selected then update the other details of user.
@@ -146,8 +142,6 @@ class CreateBoardActivity : BaseActivity() {
         toolbar_create_board_activity.setNavigationOnClickListener { onBackPressed() }
     }
 
-    // TODO (Step 3: Creating the function to upload the Board Image to storage and getting the downloadable URL of the image.)
-    // START
     /**
      * A function to upload the Board Image to storage and getting the downloadable URL of the image.
      */
@@ -191,10 +185,7 @@ class CreateBoardActivity : BaseActivity() {
                     hideProgressDialog()
                 }
     }
-    // END
 
-    // TODO (Step 2: Create a function to create the board.)
-    // START
     /**
      * A function to make an entry of a board in the database.
      */
@@ -215,7 +206,6 @@ class CreateBoardActivity : BaseActivity() {
 
         FirestoreClass().createBoard(this@CreateBoardActivity, board)
     }
-    // END
 
     /**
      * A function for notifying the board is created successfully.

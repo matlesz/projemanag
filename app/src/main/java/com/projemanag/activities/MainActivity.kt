@@ -20,6 +20,7 @@ import kotlinx.android.synthetic.main.app_bar_main.*
 
 class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener {
 
+    // A global variable for User Name
     private lateinit var mUserName: String
 
     /**
