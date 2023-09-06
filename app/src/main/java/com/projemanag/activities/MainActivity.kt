@@ -51,10 +51,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         fab_create_board.setOnClickListener {
             val intent = Intent(this@MainActivity, CreateBoardActivity::class.java)
             intent.putExtra(Constants.NAME, mUserName)
-            // TODO (Step 2: Here now pass the unique code for StartActivityForResult.)
-            // START
             startActivityForResult(intent, CREATE_BOARD_REQUEST_CODE)
-            // END
         }
     }
 
@@ -72,8 +69,8 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             R.id.nav_my_profile -> {
 
                 startActivityForResult(
-                    Intent(this@MainActivity, MyProfileActivity::class.java),
-                    MY_PROFILE_REQUEST_CODE
+                        Intent(this@MainActivity, MyProfileActivity::class.java),
+                        MY_PROFILE_REQUEST_CODE
                 )
             }
 
@@ -96,21 +93,16 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         super.onActivityResult(requestCode, resultCode, data)
 
         if (resultCode == Activity.RESULT_OK
-            && requestCode == MY_PROFILE_REQUEST_CODE
+                && requestCode == MY_PROFILE_REQUEST_CODE
         ) {
             // Get the user updated details.
             FirestoreClass().loadUserData(this@MainActivity)
-        }
-        // TODO (Step 4: Here if the result is OK get the updated boards list.)
-        // START
-        else if (resultCode == Activity.RESULT_OK
+        } else if (resultCode == Activity.RESULT_OK
                 && requestCode == CREATE_BOARD_REQUEST_CODE
         ) {
             // Get the latest boards list.
             FirestoreClass().getBoardsList(this@MainActivity)
-        }
-        // END
-        else {
+        } else {
             Log.e("Cancelled", "Cancelled")
         }
     }
@@ -157,11 +149,11 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
         // Load the user image in the ImageView.
         Glide
-            .with(this@MainActivity)
-            .load(user.image) // URL of the image
-            .centerCrop() // Scale type of the image.
-            .placeholder(R.drawable.ic_user_place_holder) // A default place holder
-            .into(navUserImage) // the view in which the image will be loaded.
+                .with(this@MainActivity)
+                .load(user.image) // URL of the image
+                .centerCrop() // Scale type of the image.
+                .placeholder(R.drawable.ic_user_place_holder) // A default place holder
+                .into(navUserImage) // the view in which the image will be loaded.
 
         // The instance of the user name TextView of the navigation view.
         val navUsername = headerView.findViewById<TextView>(R.id.tv_username)
@@ -194,15 +186,14 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             val adapter = BoardItemsAdapter(this@MainActivity, boardsList)
             rv_boards_list.adapter = adapter // Attach the adapter to the recyclerView.
 
-            // TODO (Step 9: Add click event for boards item and launch the TaskListActivity)
-            // START
             adapter.setOnClickListener(object :
-                BoardItemsAdapter.OnClickListener {
+                    BoardItemsAdapter.OnClickListener {
                 override fun onClick(position: Int, model: Board) {
-                    startActivity(Intent(this@MainActivity, TaskListActivity::class.java))
+                    val intent = Intent(this@MainActivity, TaskListActivity::class.java)
+                    intent.putExtra(Constants.DOCUMENT_ID, model.documentId)
+                    startActivity(intent)
                 }
             })
-            // END
         } else {
             rv_boards_list.visibility = View.GONE
             tv_no_boards_available.visibility = View.VISIBLE
@@ -216,7 +207,6 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         //A unique code for starting the activity for result
         const val MY_PROFILE_REQUEST_CODE: Int = 11
 
-        // TODO (Step 1: Add a unique code for starting the create board activity for result)
         const val CREATE_BOARD_REQUEST_CODE: Int = 12
     }
 }

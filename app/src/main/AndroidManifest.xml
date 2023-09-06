@@ -52,12 +52,9 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
 
-        <!--TODO (Step 6: Modify the activity tag of TaskListActivity.)-->
-        <!--START-->
         <activity
             android:name=".activities.TaskListActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-        <!--END-->
     </application>
 </manifest>
