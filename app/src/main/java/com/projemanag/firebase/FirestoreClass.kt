@@ -120,8 +120,9 @@ class FirestoreClass {
             }
     }
 
-    // TODO (Step 9: Create a function for creating a board and making an entry in the database.)
-    // START
+    /**
+     * A function for creating a board and making an entry in the database.
+     */
     fun createBoard(activity: CreateBoardActivity, board: Board) {
 
         mFireStore.collection(Constants.BOARDS)
@@ -143,7 +144,6 @@ class FirestoreClass {
                 )
             }
     }
-    // END
 
     /**
      * A function for getting the user id of current logged user.

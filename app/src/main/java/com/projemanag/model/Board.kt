@@ -3,8 +3,6 @@ package com.projemanag.model
 import android.os.Parcel
 import android.os.Parcelable
 
-// TODO (Step 1: Create a Board Model which will we use for creating the board.)
-// START
 data class Board(
     val name: String = "",
     val image: String = "",
@@ -35,4 +33,3 @@ data class Board(
         }
     }
 }
-// END
