@@ -4,12 +4,11 @@ import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
+import com.projemanag.activities.SignInActivity
 import com.projemanag.activities.SignUpActivity
 import com.projemanag.model.User
 import com.projemanag.utils.Constants
 
-// TODO (Step 3: Create a class where we will add the operation performed for the firestore database.)
-// START
 /**
  * A custom class where we will add the operation performed for the firestore database.
  */
@@ -18,7 +17,6 @@ class FirestoreClass {
     // Create a instance of Firebase Firestore
     private val mFireStore = FirebaseFirestore.getInstance()
 
-    // TODO (Step 5: Create a function to make an entry of the registered user in the firestore database.)
     /**
      * A function to make an entry of the registered user in the firestore database.
      */
@@ -43,8 +41,42 @@ class FirestoreClass {
             }
     }
 
-    // TODO (Step 6: Create a function for getting the user id of current logged user.)
+    // TODO (Step 1: Create a function to SignIn using firebase and get the user details from Firestore Database.)
     // START
+    /**
+     * A function to SignIn using firebase and get the user details from Firestore Database.
+     */
+    fun signInUser(activity: SignInActivity) {
+
+        // Here we pass the collection name from which we wants the data.
+        mFireStore.collection(Constants.USERS)
+            // The document id to get the Fields of user.
+            .document(getCurrentUserID())
+            .get()
+            .addOnSuccessListener { document ->
+                Log.e(
+                    activity.javaClass.simpleName, document.toString()
+                )
+
+                // TODO (STEP 3: Pass the result to base activity.)
+                // START
+                // Here we have received the document snapshot which is converted into the User Data model object.
+                val loggedInUser = document.toObject(User::class.java)!!
+
+                // Here call a function of base activity for transferring the result to it.
+                activity.signInSuccess(loggedInUser)
+                // END
+            }
+            .addOnFailureListener { e ->
+                Log.e(
+                    activity.javaClass.simpleName,
+                    "Error while getting loggedIn user details",
+                    e
+                )
+            }
+    }
+    // END
+
     /**
      * A function for getting the user id of current logged user.
      */

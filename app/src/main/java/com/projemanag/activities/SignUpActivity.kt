@@ -71,8 +71,6 @@ class SignUpActivity : BaseActivity() {
                 .addOnCompleteListener(
                     OnCompleteListener<AuthResult> { task ->
 
-                        // TODO (Step 9: Move hide progressbar function in the userRegisteredSuccess function.)
-
                         // If the registration is successfully done
                         if (task.isSuccessful) {
 
@@ -81,28 +79,12 @@ class SignUpActivity : BaseActivity() {
                             // Registered Email
                             val registeredEmail = firebaseUser.email!!
 
-                            // TODO(Step 1: As you can see we are now authenticated by Firebase but for more inserting more details we need to use the DATABASE in Firebase.)
-                            // START
-                            // Before start with database we need to perform some steps in Firebase Console and add a dependency in Gradle file.
-                            // Follow the Steps:
-                            // Step 1: Go to the "Database" tab in the Firebase Console in your project details in the navigation bar under "Develop".
-                            // Step 2: In the Database Page and Click on the Create Database in the Cloud Firestore in the test mode. Click on Next
-                            // Step 3: Select the Cloud Firestore location and press the Done.
-                            // Step 4: Now the database is created in the test mode and now add the cloud firestore dependency.
-                            // Step 5: For more details visit the link: https://firebase.google.com/docs/firestore
-                            // END
-
-                            // TODO (Step 4: Now here we will make an entry in the Database of a new user registered.)
-                            // START
                             val user = User(
                                 firebaseUser.uid, name, registeredEmail
                             )
 
                             // call the registerUser function of FirestoreClass to make an entry in the database.
                             FirestoreClass().registerUser(this@SignUpActivity, user)
-                            // END
-
-                            // TODO (Step 10: Move the activity finish line code in the success function.)
                         } else {
                             Toast.makeText(
                                 this@SignUpActivity,
@@ -113,7 +95,6 @@ class SignUpActivity : BaseActivity() {
                     })
         }
     }
-    // END
 
     /**
      * A function to validate the entries of a new user.
@@ -138,8 +119,6 @@ class SignUpActivity : BaseActivity() {
         }
     }
 
-    // TODO (Step 8: Create a function to be called the user is registered successfully and entry is made in the firestore database.)
-    // START
     /**
      * A function to be called the user is registered successfully and entry is made in the firestore database.
      */
@@ -162,5 +141,4 @@ class SignUpActivity : BaseActivity() {
         // Finish the Sign-Up Screen
         finish()
     }
-    // END
 }

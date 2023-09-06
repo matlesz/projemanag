@@ -7,6 +7,8 @@ import android.view.WindowManager
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.projemanag.R
+import com.projemanag.firebase.FirestoreClass
+import com.projemanag.model.User
 import kotlinx.android.synthetic.main.activity_sign_in.*
 
 class SignInActivity : BaseActivity() {
@@ -63,16 +65,11 @@ class SignInActivity : BaseActivity() {
             // Sign-In using FirebaseAuth
             FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener { task ->
-                    hideProgressDialog()
                     if (task.isSuccessful) {
-
-                        Toast.makeText(
-                            this@SignInActivity,
-                            "You have successfully signed in.",
-                            Toast.LENGTH_LONG
-                        ).show()
-
-                        startActivity(Intent(this@SignInActivity, MainActivity::class.java))
+                        // TODO (Step 2: Remove the toast message and call the FirestoreClass signInUser function to get the data of user from database. And also move the code of hiding Progress Dialog and Launching MainActivity to Success function.)
+                        // Calling the FirestoreClass signInUser function to get the data of user from database.
+                        FirestoreClass().signInUser(this@SignInActivity)
+                        // END
                     } else {
                         Toast.makeText(
                             this@SignInActivity,
@@ -98,4 +95,18 @@ class SignInActivity : BaseActivity() {
             true
         }
     }
+
+    // TODO (Step 4: Create a function to get the user details from the firestore database after authentication.)
+    // START
+    /**
+     * A function to get the user details from the firestore database after authentication.
+     */
+    fun signInSuccess(user: User) {
+
+        hideProgressDialog()
+
+        startActivity(Intent(this@SignInActivity, MainActivity::class.java))
+        finish()
+    }
+    // END
 }
