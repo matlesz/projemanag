@@ -3,8 +3,6 @@ package com.projemanag.model
 import android.os.Parcel
 import android.os.Parcelable
 
-// TODO (Step 2: Add a new parameter as document id in which we will store the document id of BOARD.)
-// START
 data class Board(
     val name: String = "",
     val image: String = "",
@@ -38,4 +36,3 @@ data class Board(
         }
     }
 }
-// END

@@ -43,18 +43,18 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         // Assign the NavigationView.OnNavigationItemSelectedListener to navigation view.
         nav_view.setNavigationItemSelectedListener(this)
 
-        // TODO (Step 6: Here pass the parameter value as TRUE to read the boards rest all are FALSE.)
-        // START
         // Get the current logged in user details.
         // Show the progress dialog.
         showProgressDialog(resources.getString(R.string.please_wait))
         FirestoreClass().loadUserData(this@MainActivity, true)
-        // END
 
         fab_create_board.setOnClickListener {
             val intent = Intent(this@MainActivity, CreateBoardActivity::class.java)
             intent.putExtra(Constants.NAME, mUserName)
-            startActivity(intent)
+            // TODO (Step 2: Here now pass the unique code for StartActivityForResult.)
+            // START
+            startActivityForResult(intent, CREATE_BOARD_REQUEST_CODE)
+            // END
         }
     }
 
@@ -100,7 +100,17 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         ) {
             // Get the user updated details.
             FirestoreClass().loadUserData(this@MainActivity)
-        } else {
+        }
+        // TODO (Step 4: Here if the result is OK get the updated boards list.)
+        // START
+        else if (resultCode == Activity.RESULT_OK
+                && requestCode == CREATE_BOARD_REQUEST_CODE
+        ) {
+            // Get the latest boards list.
+            FirestoreClass().getBoardsList(this@MainActivity)
+        }
+        // END
+        else {
             Log.e("Cancelled", "Cancelled")
         }
     }
@@ -130,11 +140,10 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         }
     }
 
-    // TODO (Step 7: Add a parameter to check whether to read the boards list or not.)
     /**
      * A function to get the current user details from firebase.
      */
-    fun updateNavigationUserDetails(user: User, isToReadBoardsList: Boolean) {
+    fun updateNavigationUserDetails(user: User, readBoardsList: Boolean) {
 
         hideProgressDialog()
 
@@ -159,18 +168,13 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         // Set the user name
         navUsername.text = user.name
 
-        // TODO (Step 8: Here if the isToReadBoardList is TRUE then get the list of boards.)
-        // START
-        if (isToReadBoardsList) {
+        if (readBoardsList) {
             // Show the progress dialog.
             showProgressDialog(resources.getString(R.string.please_wait))
             FirestoreClass().getBoardsList(this@MainActivity)
         }
-        // END
     }
 
-    // TODO (Step 1: Create a function to populate the result of BOARDS list in the UI i.e in the recyclerView.)
-    // START
     /**
      * A function to populate the result of BOARDS list in the UI i.e in the recyclerView.
      */
@@ -189,12 +193,21 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             // Create an instance of BoardItemsAdapter and pass the boardList to it.
             val adapter = BoardItemsAdapter(this@MainActivity, boardsList)
             rv_boards_list.adapter = adapter // Attach the adapter to the recyclerView.
+
+            // TODO (Step 9: Add click event for boards item and launch the TaskListActivity)
+            // START
+            adapter.setOnClickListener(object :
+                BoardItemsAdapter.OnClickListener {
+                override fun onClick(position: Int, model: Board) {
+                    startActivity(Intent(this@MainActivity, TaskListActivity::class.java))
+                }
+            })
+            // END
         } else {
             rv_boards_list.visibility = View.GONE
             tv_no_boards_available.visibility = View.VISIBLE
         }
     }
-    // END
 
     /**
      * A companion object to declare the constants.
@@ -202,5 +215,8 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     companion object {
         //A unique code for starting the activity for result
         const val MY_PROFILE_REQUEST_CODE: Int = 11
+
+        // TODO (Step 1: Add a unique code for starting the create board activity for result)
+        const val CREATE_BOARD_REQUEST_CODE: Int = 12
     }
 }

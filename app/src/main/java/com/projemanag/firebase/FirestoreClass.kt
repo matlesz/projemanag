@@ -44,11 +44,10 @@ class FirestoreClass {
             }
     }
 
-    // TODO (Step 5: Add a parameter to check whether to read the boards list or not.)
     /**
      * A function to SignIn using firebase and get the user details from Firestore Database.
      */
-    fun loadUserData(activity: Activity, isToReadBoardsList: Boolean = false) {
+    fun loadUserData(activity: Activity, readBoardsList: Boolean = false) {
 
         // Here we pass the collection name from which we wants the data.
         mFireStore.collection(Constants.USERS)
@@ -67,7 +66,7 @@ class FirestoreClass {
                         activity.signInSuccess(loggedInUser)
                     }
                     is MainActivity -> {
-                        activity.updateNavigationUserDetails(loggedInUser, isToReadBoardsList)
+                        activity.updateNavigationUserDetails(loggedInUser, readBoardsList)
                     }
                     is MyProfileActivity -> {
                         activity.setUserDataInUI(loggedInUser)
@@ -146,8 +145,6 @@ class FirestoreClass {
             }
     }
 
-    // TODO (Step 4: Create a function to get the list of created boards from the database.)
-    // START
     /**
      * A function to get the list of created boards from the database.
      */
@@ -182,7 +179,6 @@ class FirestoreClass {
                 Log.e(activity.javaClass.simpleName, "Error while creating a board.", e)
             }
     }
-    // END
 
     /**
      * A function for getting the user id of current logged user.
