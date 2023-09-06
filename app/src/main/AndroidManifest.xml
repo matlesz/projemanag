@@ -46,14 +46,10 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"/>
 
-        <!--TODO (Step 3: Modify the activity tag as per requirement.)-->
-        <!--START-->
         <activity
             android:name=".activities.CreateBoardActivity"
             android:label="@string/create_board_title"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-        <!--END-->
     </application>
-
 </manifest>
