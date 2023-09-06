@@ -11,8 +11,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.projemanag.R
 import kotlinx.android.synthetic.main.dialog_progress.*
 
-// TODO (Step 4: Here we have created a BaseActivity Class in which we have added the progress dialog and SnackBar. Now all the activity will extend the BaseActivity instead of AppCompatActivity.)
-// START
 open class BaseActivity : AppCompatActivity() {
 
     private var doubleBackToExitPressedOnce = false
