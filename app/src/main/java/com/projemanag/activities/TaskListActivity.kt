@@ -7,6 +7,7 @@ import com.projemanag.R
 import com.projemanag.adapters.TaskListItemsAdapter
 import com.projemanag.firebase.FirestoreClass
 import com.projemanag.model.Board
+import com.projemanag.model.Card
 import com.projemanag.model.Task
 import com.projemanag.utils.Constants
 import kotlinx.android.synthetic.main.activity_task_list.*
@@ -90,8 +91,6 @@ class TaskListActivity : BaseActivity() {
         FirestoreClass().addUpdateTaskList(this@TaskListActivity, mBoardDetails)
     }
 
-    // TODO (Step 3: Create a function to update the taskList.)
-    // START
     /**
      * A function to update the taskList
      */
@@ -106,14 +105,11 @@ class TaskListActivity : BaseActivity() {
         showProgressDialog(resources.getString(R.string.please_wait))
         FirestoreClass().addUpdateTaskList(this@TaskListActivity, mBoardDetails)
     }
-    // END
 
-    // TODO (Step 5: Create a function to delete the task list.)
-    // START
     /**
      * A function to delete the task list from database.
      */
-    fun deleteTaskList(position: Int){
+    fun deleteTaskList(position: Int) {
 
         mBoardDetails.taskList.removeAt(position)
 
@@ -123,7 +119,6 @@ class TaskListActivity : BaseActivity() {
         showProgressDialog(resources.getString(R.string.please_wait))
         FirestoreClass().addUpdateTaskList(this@TaskListActivity, mBoardDetails)
     }
-    // END
 
     /**
      * A function to get the result of add or updating the task list.
@@ -137,4 +132,36 @@ class TaskListActivity : BaseActivity() {
         showProgressDialog(resources.getString(R.string.please_wait))
         FirestoreClass().getBoardDetails(this@TaskListActivity, mBoardDetails.documentId)
     }
+
+    // TODO (Step 5: A function to create a card and update it in the task list.)
+    // START
+    /**
+     * A function to create a card and update it in the task list.
+     */
+    fun addCardToTaskList(position: Int, cardName: String) {
+
+        // Remove the last item
+        mBoardDetails.taskList.removeAt(mBoardDetails.taskList.size - 1)
+
+        val cardAssignedUsersList: ArrayList<String> = ArrayList()
+        cardAssignedUsersList.add(FirestoreClass().getCurrentUserID())
+
+        val card = Card(cardName, FirestoreClass().getCurrentUserID(), cardAssignedUsersList)
+
+        val cardsList = mBoardDetails.taskList[position].cards
+        cardsList.add(card)
+
+        val task = Task(
+            mBoardDetails.taskList[position].title,
+            mBoardDetails.taskList[position].createdBy,
+            cardsList
+        )
+
+        mBoardDetails.taskList[position] = task
+
+        // Show the progress dialog.
+        showProgressDialog(resources.getString(R.string.please_wait))
+        FirestoreClass().addUpdateTaskList(this@TaskListActivity, mBoardDetails)
+    }
+    // END
 }

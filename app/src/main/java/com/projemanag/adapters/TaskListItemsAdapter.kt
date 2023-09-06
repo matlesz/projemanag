@@ -89,26 +89,18 @@ open class TaskListItemsAdapter(
                 }
             }
 
-            // TODO (Step 1: Add a click event for iv_edit_list for showing the editable view.)
-            // START
             holder.itemView.ib_edit_list_name.setOnClickListener {
 
                 holder.itemView.et_edit_task_list_name.setText(model.title) // Set the existing title
                 holder.itemView.ll_title_view.visibility = View.GONE
                 holder.itemView.cv_edit_task_list_name.visibility = View.VISIBLE
             }
-            // END
 
-            // TODO (Step 2: Add a click event for iv_close_editable_view for hiding the editable view.)
-            // START
             holder.itemView.ib_close_editable_view.setOnClickListener {
                 holder.itemView.ll_title_view.visibility = View.VISIBLE
                 holder.itemView.cv_edit_task_list_name.visibility = View.GONE
             }
-            // END
 
-            // TODO (Step 4: Add a click event for iv_edit_list for showing thr editable view.)
-            // START
             holder.itemView.ib_done_edit_list_name.setOnClickListener {
                 val listName = holder.itemView.et_edit_task_list_name.text.toString()
 
@@ -120,13 +112,41 @@ open class TaskListItemsAdapter(
                     Toast.makeText(context, "Please Enter List Name.", Toast.LENGTH_SHORT).show()
                 }
             }
-            // END
 
-            // TODO (Step 7: Add a click event for ib_delete_list for deleting the task list.)
-            // START
             holder.itemView.ib_delete_list.setOnClickListener {
 
                 alertDialogForDeleteList(position, model.title)
+            }
+
+            // TODO (Step 3: Add a click event for adding a card in the task list.)
+            // START
+            holder.itemView.tv_add_card.setOnClickListener {
+
+                holder.itemView.tv_add_card.visibility = View.GONE
+                holder.itemView.cv_add_card.visibility = View.VISIBLE
+
+                // TODO (Step 4: Add a click event for closing the view for card add in the task list.)
+                // START
+                holder.itemView.ib_close_card_name.setOnClickListener {
+                    holder.itemView.tv_add_card.visibility = View.VISIBLE
+                    holder.itemView.cv_add_card.visibility = View.GONE
+                }
+                // END
+
+                // TODO (Step 6: Add a click event for adding a card in the task list.)
+                // START
+                holder.itemView.ib_done_card_name.setOnClickListener {
+
+                    val cardName = holder.itemView.et_card_name.text.toString()
+
+                    if (cardName.isNotEmpty()) {
+                        if (context is TaskListActivity) {
+                            context.addCardToTaskList(position, cardName)
+                        }
+                    }else{
+                        Toast.makeText(context, "Please Enter Card Detail.", Toast.LENGTH_SHORT).show()
+                    }
+                }
             }
             // END
         }
@@ -151,8 +171,6 @@ open class TaskListItemsAdapter(
     private fun Int.toPx(): Int =
         (this * Resources.getSystem().displayMetrics.density).toInt()
 
-    // TODO (Step 6: Create a function to show an alert dialog for deleting the task list.)
-    // START
     /**
      * Method is used to show the Alert Dialog for deleting the task list.
      */
@@ -182,7 +200,6 @@ open class TaskListItemsAdapter(
         alertDialog.setCancelable(false) // Will not allow user to cancel after clicking on remaining screen area.
         alertDialog.show()  // show the dialog to UI
     }
-    // END
 
     /**
      * A ViewHolder describes an item view and metadata about its place within the RecyclerView.
