@@ -190,14 +190,11 @@ class FirestoreClass {
             .addOnSuccessListener { document ->
                 Log.e(activity.javaClass.simpleName, document.toString())
 
-                // TODO (Step 1: Assign the board document id to the Board Detail object)
-                // START
                 val board = document.toObject(Board::class.java)!!
                 board.documentId = document.id
 
                 // Send the result of board to the base activity.
                 activity.boardDetails(board)
-                // END
             }
             .addOnFailureListener { e ->
                 activity.hideProgressDialog()
@@ -205,7 +202,6 @@ class FirestoreClass {
             }
     }
 
-    // TODO (Step 9: Create a function to add the task list in the board detail.)
     /**
      * A function to create a task list in the board detail.
      */

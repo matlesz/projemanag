@@ -13,11 +13,8 @@ import kotlinx.android.synthetic.main.activity_task_list.*
 
 class TaskListActivity : BaseActivity() {
 
-    // TODO (Step 2: Create a global variable for Board Details.)
-    // START
     // A global variable for Board Details.
     private lateinit var mBoardDetails: Board
-    // END
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,19 +52,12 @@ class TaskListActivity : BaseActivity() {
      */
     fun boardDetails(board: Board) {
 
-        // TODO (Step 3: Initialize and Assign the value to the global variable for Board Details.
-        //  After replace the parameter variable with global so from onwards the global variable will be used.)
-        // START
         mBoardDetails = board
-        // END
 
         hideProgressDialog()
 
-        // TODO (Step 4: Remove the parameter and add the title from global variable in the setupActionBar function.)
-        // START
         // Call the function to setup action bar.
         setupActionBar()
-        // END
 
         // Here we are appending an item view for adding a list task list for the board.
         val addTaskList = Task(resources.getString(R.string.add_list))
@@ -82,8 +72,6 @@ class TaskListActivity : BaseActivity() {
         rv_task_list.adapter = adapter // Attach the adapter to the recyclerView.
     }
 
-    // TODO (Step 10: Create a function to get the task list name from the adapter class which we will be using to create a new task list in the database.)
-    // START
     /**
      * A function to get the task list name from the adapter class which we will be using to create a new task list in the database.
      */
@@ -99,13 +87,44 @@ class TaskListActivity : BaseActivity() {
 
         // Show the progress dialog.
         showProgressDialog(resources.getString(R.string.please_wait))
+        FirestoreClass().addUpdateTaskList(this@TaskListActivity, mBoardDetails)
+    }
 
+    // TODO (Step 3: Create a function to update the taskList.)
+    // START
+    /**
+     * A function to update the taskList
+     */
+    fun updateTaskList(position: Int, listName: String, model: Task) {
+
+        val task = Task(listName, model.createdBy)
+
+        mBoardDetails.taskList[position] = task
+        mBoardDetails.taskList.removeAt(mBoardDetails.taskList.size - 1)
+
+        // Show the progress dialog.
+        showProgressDialog(resources.getString(R.string.please_wait))
         FirestoreClass().addUpdateTaskList(this@TaskListActivity, mBoardDetails)
     }
     // END
 
-    // TODO (Step 7: Create a function to get the result of add or updating the task list.)
+    // TODO (Step 5: Create a function to delete the task list.)
     // START
+    /**
+     * A function to delete the task list from database.
+     */
+    fun deleteTaskList(position: Int){
+
+        mBoardDetails.taskList.removeAt(position)
+
+        mBoardDetails.taskList.removeAt(mBoardDetails.taskList.size - 1)
+
+        // Show the progress dialog.
+        showProgressDialog(resources.getString(R.string.please_wait))
+        FirestoreClass().addUpdateTaskList(this@TaskListActivity, mBoardDetails)
+    }
+    // END
+
     /**
      * A function to get the result of add or updating the task list.
      */
