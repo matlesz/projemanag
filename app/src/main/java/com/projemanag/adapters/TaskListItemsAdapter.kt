@@ -27,13 +27,10 @@ open class TaskListItemsAdapter(
     private var list: ArrayList<Task>
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    // TODO (Step 3: Add global variables for dragging positions.)
-    // START
     // A global variable for position dragged FROM.
     private var mPositionDraggedFrom = -1
     // A global variable for position dragged TO.
     private var mPositionDraggedTo = -1
-    // END
 
     /**
      * Inflates the item views which is designed in xml layout file
@@ -175,8 +172,6 @@ open class TaskListItemsAdapter(
                 }
             })
 
-            // TODO (Step 1: Add a feature to drap and drop the card items.)
-            // START
             /**
              * Creates a divider {@link RecyclerView.ItemDecoration} that can be used with a
              * {@link LinearLayoutManager}.
@@ -202,13 +197,10 @@ open class TaskListItemsAdapter(
                     val draggedPosition = dragged.adapterPosition
                     val targetPosition = target.adapterPosition
 
-                    // TODO (Step 4: Assign the global variable with updated values.)
-                    // START
                     if (mPositionDraggedFrom == -1) {
                         mPositionDraggedFrom = draggedPosition
                     }
                     mPositionDraggedTo = targetPosition
-                    // END
 
                     /**
                      * Swaps the elements at the specified positions in the specified list.
@@ -228,8 +220,6 @@ open class TaskListItemsAdapter(
                 ) { // remove from adapter
                 }
 
-                // TODO (Step 5: Finally when the dragging is completed than call the function to update the cards in the database and reset the global variables.)
-                // START
                 /*Called by the ItemTouchHelper when the user interaction with an element is over and it
                  also completed its animation.*/
                 override fun clearView(recyclerView: RecyclerView, viewHolder: ViewHolder) {
@@ -247,13 +237,11 @@ open class TaskListItemsAdapter(
                     mPositionDraggedFrom = -1
                     mPositionDraggedTo = -1
                 }
-                // END
             })
 
             /*Attaches the ItemTouchHelper to the provided RecyclerView. If TouchHelper is already
             attached to a RecyclerView, it will first detach from the previous one.*/
             helper.attachToRecyclerView(holder.itemView.rv_card_list)
-            // END
         }
     }
 

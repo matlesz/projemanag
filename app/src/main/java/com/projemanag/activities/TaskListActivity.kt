@@ -234,8 +234,6 @@ class TaskListActivity : BaseActivity() {
         rv_task_list.adapter = adapter // Attach the adapter to the recyclerView.
     }
 
-    // TODO (Step 2: Create a function to update the card list in the particular task list.)
-    // START
     /**
      * A function to update the card list in the particular task list.
      */
@@ -250,7 +248,6 @@ class TaskListActivity : BaseActivity() {
         showProgressDialog(resources.getString(R.string.please_wait))
         FirestoreClass().addUpdateTaskList(this@TaskListActivity, mBoardDetails)
     }
-    // END
 
     /**
      * A companion object to declare the constants.

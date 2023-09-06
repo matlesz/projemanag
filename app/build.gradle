@@ -38,6 +38,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-firestore:21.4.0'
     // Firebase Storage Dependency
     implementation 'com.google.firebase:firebase-storage:19.1.1'
+    // Firebase Messaging Dependency
+    implementation 'com.google.firebase:firebase-messaging:20.1.1'
     // circular image view dependency
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     // Image loading library
