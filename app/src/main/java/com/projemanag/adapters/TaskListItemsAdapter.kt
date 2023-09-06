@@ -6,13 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.projemanag.R
+import com.projemanag.activities.TaskListActivity
 import com.projemanag.model.Task
 import kotlinx.android.synthetic.main.item_task.view.*
 
-// TODO (Step 5: Create an adapter class for Task List Items in the TaskListActivity.)
-// START
 open class TaskListItemsAdapter(
     private val context: Context,
     private var list: ArrayList<Task>
@@ -26,8 +26,6 @@ open class TaskListItemsAdapter(
      */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 
-        // TODO (Step 6: Here we have done some additional changes to display the item of the task list item in 70% of the screen size.)
-        // START
         val view = LayoutInflater.from(context).inflate(R.layout.item_task, parent, false)
         // Here the layout params are converted dynamically according to the screen size as width is 70% and height is wrap_content.
         val layoutParams = LinearLayout.LayoutParams(
@@ -63,6 +61,42 @@ open class TaskListItemsAdapter(
                 holder.itemView.tv_add_task_list.visibility = View.GONE
                 holder.itemView.ll_task_item.visibility = View.VISIBLE
             }
+
+            // TODO (Step 5: Add a click event for showing the view for adding the task list name. And also set the task list title name.)
+            // START
+
+            holder.itemView.tv_task_list_title.text = model.title
+
+            holder.itemView.tv_add_task_list.setOnClickListener {
+
+                holder.itemView.tv_add_task_list.visibility = View.GONE
+                holder.itemView.cv_add_task_list_name.visibility = View.VISIBLE
+            }
+            // END
+
+            // TODO (Step 6: Add a click event for hiding the view for adding the task list name.)
+            // START
+            holder.itemView.ib_close_list_name.setOnClickListener {
+                holder.itemView.tv_add_task_list.visibility = View.VISIBLE
+                holder.itemView.cv_add_task_list_name.visibility = View.GONE
+            }
+            // END
+
+            // TODO (Step 11: Add a click event for passing the task list name to the base activity function. To create a task list.)
+            // START
+            holder.itemView.ib_done_list_name.setOnClickListener {
+                val listName = holder.itemView.et_task_list_name.text.toString()
+
+                if (listName.isNotEmpty()) {
+                    // Here we check the context is an instance of the TaskListActivity.
+                    if (context is TaskListActivity) {
+                        context.createTaskList(listName)
+                    }
+                } else {
+                    Toast.makeText(context, "Please Enter List Name.", Toast.LENGTH_SHORT).show()
+                }
+            }
+            // END
         }
     }
 
@@ -90,4 +124,3 @@ open class TaskListItemsAdapter(
      */
     class MyViewHolder(view: View) : RecyclerView.ViewHolder(view)
 }
-// END
