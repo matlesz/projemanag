@@ -3,17 +3,15 @@ package com.projemanag.model
 import android.os.Parcel
 import android.os.Parcelable
 
-// TODO (Step 1: Create a data model class for CARD.)
-// START
 data class Card(
-    val name: String = "",
-    val createdBy: String = "",
-    val assignedTo: ArrayList<String> = ArrayList()
+        val name: String = "",
+        val createdBy: String = "",
+        val assignedTo: ArrayList<String> = ArrayList()
 ) : Parcelable {
     constructor(source: Parcel) : this(
-        source.readString()!!,
-        source.readString()!!,
-        source.createStringArrayList()!!
+            source.readString()!!,
+            source.readString()!!,
+            source.createStringArrayList()!!
     )
 
     override fun describeContents() = 0
@@ -32,4 +30,3 @@ data class Card(
         }
     }
 }
-// END

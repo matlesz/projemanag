@@ -133,8 +133,6 @@ class TaskListActivity : BaseActivity() {
         FirestoreClass().getBoardDetails(this@TaskListActivity, mBoardDetails.documentId)
     }
 
-    // TODO (Step 5: A function to create a card and update it in the task list.)
-    // START
     /**
      * A function to create a card and update it in the task list.
      */
@@ -163,5 +161,4 @@ class TaskListActivity : BaseActivity() {
         showProgressDialog(resources.getString(R.string.please_wait))
         FirestoreClass().addUpdateTaskList(this@TaskListActivity, mBoardDetails)
     }
-    // END
 }

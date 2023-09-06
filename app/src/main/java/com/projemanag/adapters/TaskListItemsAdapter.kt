@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.projemanag.R
 import com.projemanag.activities.TaskListActivity
@@ -118,23 +119,16 @@ open class TaskListItemsAdapter(
                 alertDialogForDeleteList(position, model.title)
             }
 
-            // TODO (Step 3: Add a click event for adding a card in the task list.)
-            // START
             holder.itemView.tv_add_card.setOnClickListener {
 
                 holder.itemView.tv_add_card.visibility = View.GONE
                 holder.itemView.cv_add_card.visibility = View.VISIBLE
 
-                // TODO (Step 4: Add a click event for closing the view for card add in the task list.)
-                // START
                 holder.itemView.ib_close_card_name.setOnClickListener {
                     holder.itemView.tv_add_card.visibility = View.VISIBLE
                     holder.itemView.cv_add_card.visibility = View.GONE
                 }
-                // END
 
-                // TODO (Step 6: Add a click event for adding a card in the task list.)
-                // START
                 holder.itemView.ib_done_card_name.setOnClickListener {
 
                     val cardName = holder.itemView.et_card_name.text.toString()
@@ -148,6 +142,14 @@ open class TaskListItemsAdapter(
                     }
                 }
             }
+
+            // TODO (Step 4: Load the cards list in the recyclerView.)
+            // START
+            holder.itemView.rv_card_list.layoutManager = LinearLayoutManager(context)
+            holder.itemView.rv_card_list.setHasFixedSize(true)
+
+            val adapter = CardListItemsAdapter(context, model.cards)
+            holder.itemView.rv_card_list.adapter = adapter
             // END
         }
     }

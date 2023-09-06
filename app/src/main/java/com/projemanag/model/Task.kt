@@ -2,17 +2,16 @@ package com.projemanag.model
 
 import android.os.Parcel
 import android.os.Parcelable
-// TODO (Step 2: Add one more parameter as a cards list using the card model class.)
-// START
+
 data class Task(
-    var title: String = "",
-    val createdBy: String = "",
-    val cards: ArrayList<Card> = ArrayList()
+        var title: String = "",
+        val createdBy: String = "",
+        val cards: ArrayList<Card> = ArrayList()
 ) : Parcelable {
     constructor(source: Parcel) : this(
-        source.readString()!!,
-        source.readString()!!,
-        source.createTypedArrayList(Card.CREATOR)!!
+            source.readString()!!,
+            source.readString()!!,
+            source.createTypedArrayList(Card.CREATOR)!!
     )
 
     override fun describeContents() = 0
@@ -31,4 +30,3 @@ data class Task(
         }
     }
 }
-// END
