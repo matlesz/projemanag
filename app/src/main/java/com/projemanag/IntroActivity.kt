@@ -28,13 +28,19 @@ class IntroActivity : AppCompatActivity() {
             Typeface.createFromAsset(assets, "carbon bl.ttf")
         tv_app_name_intro.typeface = typeface
 
-        // TODO (Step 7: Add a click event for Sign Up btn and launch the Sign Up Screen.)
+        // TODO (Step 6: Add a click event for Sign In btn and launch the Sign In Screen.)
         // START
+        btn_sign_in_intro.setOnClickListener {
+
+            // Launch the sign in screen.
+            startActivity(Intent(this@IntroActivity, SignInActivity::class.java))
+        }
+        // END
+
         btn_sign_up_intro.setOnClickListener {
 
             // Launch the sign up screen.
             startActivity(Intent(this@IntroActivity, SignUpActivity::class.java))
         }
-        // END
     }
 }
