@@ -108,8 +108,6 @@
     <dimen name="item_member_divider_height">0.3dp</dimen>
     <dimen name="item_member_divider_marginTop">5dp</dimen>
 
-    <!--TODO (Step 5: All the dimen values are added here.)-->
-    <!--START-->
     <dimen name="dialog_member_cv_elevation">3dp</dimen>
     <dimen name="dialog_member_cv_cornerRadius">3dp</dimen>
     <dimen name="dialog_member_content_padding">10dp</dimen>
@@ -122,5 +120,4 @@
     <dimen name="member_dialog_action_layout_marginTop">10dp</dimen>
     <dimen name="member_dialog_action_button_padding">10dp</dimen>
     <dimen name="member_dialog_action_button_text_size">16sp</dimen>
-    <!--END-->
 </resources>

@@ -38,11 +38,8 @@
 
     <string name="members">Members</string>
 
-    <!--TODO (Step 2: All the string values are added here.)-->
-    <!--START-->
     <string name="add_member">Add Member</string>
     <string name="cancel">CANCEL</string>
     <string name="add">ADD</string>
     <string name="search_member">Search Member</string>
-    <!--END-->
 </resources>

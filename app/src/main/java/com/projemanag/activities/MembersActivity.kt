@@ -21,6 +21,12 @@ class MembersActivity : BaseActivity() {
     // A global variable for Board Details.
     private lateinit var mBoardDetails: Board
 
+    // TODO (Step 1: A global variable for Users List.)
+    // START
+    // A global variable for Assigned Members List.
+    private lateinit var mAssignedMembersList:ArrayList<User>
+    // END
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_members)
@@ -55,8 +61,6 @@ class MembersActivity : BaseActivity() {
         toolbar_members_activity.setNavigationOnClickListener { onBackPressed() }
     }
 
-    // TODO (Step 3: Inflate the menu file for adding the member and also add the onOptionItemSelected function.)
-    // START
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         // Inflate the menu to use in the action bar
         menuInflater.inflate(R.menu.menu_add_member, menu)
@@ -68,21 +72,22 @@ class MembersActivity : BaseActivity() {
         when (item.itemId) {
             R.id.action_add_member -> {
 
-                // TODO (Step 7: Call the dialogSearchMember function here.)
-                // START
                 dialogSearchMember()
-                // END
                 return true
             }
         }
         return super.onOptionsItemSelected(item)
     }
-    // END
 
     /**
      * A function to setup assigned members list into recyclerview.
      */
     fun setupMembersList(list: ArrayList<User>) {
+
+        // TODO (Step 2: Initialize the Assigned Members List.)
+        // START
+        mAssignedMembersList = list
+        // END
 
         hideProgressDialog()
 
@@ -94,8 +99,6 @@ class MembersActivity : BaseActivity() {
     }
 
 
-    // TODO (Step 6: Initialize the dialog for searching member from Database.)
-    // START
     /**
      * Method is used to show the Custom Dialog.
      */
@@ -110,12 +113,20 @@ class MembersActivity : BaseActivity() {
 
             if (email.isNotEmpty()) {
                 dialog.dismiss()
+
+                // TODO (Step 5: Get the member details from the database.)
+                // START
+                // Show the progress dialog.
+                showProgressDialog(resources.getString(R.string.please_wait))
+                FirestoreClass().getMemberDetails(this@MembersActivity, email)
+                // END
             } else {
-                Toast.makeText(
+                showErrorSnackBar("Please enter members email address.")
+                /*Toast.makeText(
                     this@MembersActivity,
                     "Please enter members email address.",
                     Toast.LENGTH_SHORT
-                ).show()
+                ).show()*/
             }
         })
         dialog.tv_cancel.setOnClickListener(View.OnClickListener {
@@ -123,6 +134,36 @@ class MembersActivity : BaseActivity() {
         })
         //Start the dialog and display it on screen.
         dialog.show()
+    }
+    // END
+
+    // TODO (Step 3: Here we will get the result of the member if it found in the database.)
+    // START
+    fun memberDetails(user: User) {
+
+        // TODO (Step 6: Here add the user id to the existing assigned members list of the board.)
+        // START
+        mBoardDetails.assignedTo.add(user.id)
+
+        // TODO (Step 9: Finally assign the member to the board.)
+        // START
+        FirestoreClass().assignMemberToBoard(this@MembersActivity, mBoardDetails, user)
+        // ENDss
+    }
+    // END
+
+    // TODO (Step 7: Initialize the dialog for searching member from Database.)
+    // START
+    /**
+     * A function to get the result of assigning the members.
+     */
+    fun memberAssignSuccess(user: User) {
+
+        hideProgressDialog()
+
+        mAssignedMembersList.add(user)
+
+        setupMembersList(mAssignedMembersList)
     }
     // END
 }
