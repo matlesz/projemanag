@@ -61,8 +61,6 @@ open class CardListItemsAdapter(
 
             holder.itemView.tv_card_name.text = model.name
 
-            // TODO (Step 3: Now with use of public list of Assigned members detail List populate the recyclerView for Assigned Members.)
-            // START
             if ((context as TaskListActivity).mAssignedMembersDetailList.size > 0) {
                 // A instance of selected members list.
                 val selectedMembersList: ArrayList<SelectedMembers> = ArrayList()
@@ -105,7 +103,6 @@ open class CardListItemsAdapter(
                     holder.itemView.rv_card_selected_members_list.visibility = View.GONE
                 }
             }
-            // END
 
             holder.itemView.setOnClickListener {
                 if (onClickListener != null) {

@@ -25,11 +25,8 @@ class TaskListActivity : BaseActivity() {
     // A global variable for board document id as mBoardDocumentId
     private lateinit var mBoardDocumentId: String
 
-    // TODO (Make the variable public.)
-    // START
     // A global variable for Assigned Members List.
     lateinit var mAssignedMembersDetailList: ArrayList<User>
-    // END
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -105,21 +102,6 @@ class TaskListActivity : BaseActivity() {
 
         // Call the function to setup action bar.
         setupActionBar()
-
-        // TODO (Step 2.1: Cut and the commented code to the next location.)
-        // START
-        /*// Here we are appending an item view for adding a list task list for the board.
-        val addTaskList = Task(resources.getString(R.string.add_list))
-        mBoardDetails.taskList.add(addTaskList)
-
-        rv_task_list.layoutManager =
-            LinearLayoutManager(this@TaskListActivity, LinearLayoutManager.HORIZONTAL, false)
-        rv_task_list.setHasFixedSize(true)
-
-        // Create an instance of TaskListItemsAdapter and pass the task list to it.
-        val adapter = TaskListItemsAdapter(this@TaskListActivity, mBoardDetails.taskList)
-        rv_task_list.adapter = adapter // Attach the adapter to the recyclerView.*/
-        // END
 
         // Show the progress dialog.
         showProgressDialog(resources.getString(R.string.please_wait))
@@ -239,8 +221,6 @@ class TaskListActivity : BaseActivity() {
 
         hideProgressDialog()
 
-        // TODO (Step 2.2: Paste the commented code here.)
-        // START
         // Here we are appending an item view for adding a list task list for the board.
         val addTaskList = Task(resources.getString(R.string.add_list))
         mBoardDetails.taskList.add(addTaskList)
@@ -252,8 +232,25 @@ class TaskListActivity : BaseActivity() {
         // Create an instance of TaskListItemsAdapter and pass the task list to it.
         val adapter = TaskListItemsAdapter(this@TaskListActivity, mBoardDetails.taskList)
         rv_task_list.adapter = adapter // Attach the adapter to the recyclerView.
-        // END
     }
+
+    // TODO (Step 2: Create a function to update the card list in the particular task list.)
+    // START
+    /**
+     * A function to update the card list in the particular task list.
+     */
+    fun updateCardsInTaskList(taskListPosition: Int, cards: ArrayList<Card>) {
+
+        // Remove the last item
+        mBoardDetails.taskList.removeAt(mBoardDetails.taskList.size - 1)
+
+        mBoardDetails.taskList[taskListPosition].cards = cards
+
+        // Show the progress dialog.
+        showProgressDialog(resources.getString(R.string.please_wait))
+        FirestoreClass().addUpdateTaskList(this@TaskListActivity, mBoardDetails)
+    }
+    // END
 
     /**
      * A companion object to declare the constants.
