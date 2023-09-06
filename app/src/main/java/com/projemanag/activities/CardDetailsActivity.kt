@@ -13,6 +13,7 @@ import com.projemanag.firebase.FirestoreClass
 import com.projemanag.model.Board
 import com.projemanag.model.Card
 import com.projemanag.model.Task
+import com.projemanag.model.User
 import com.projemanag.utils.Constants
 import kotlinx.android.synthetic.main.activity_card_details.*
 
@@ -24,10 +25,13 @@ class CardDetailsActivity : BaseActivity() {
     private var mTaskListPosition: Int = -1
     // A global variable for card item position
     private var mCardPosition: Int = -1
-    // TODO (Step 9: Add a global variable for selected label color)
-    // START
     // A global variable for selected label color
     private var mSelectedColor: String = ""
+
+    // TODO (Step 10: Add a global variable for Assigned Members Detail List.)
+    // START
+    // A global variable for Assigned Members List.
+    private lateinit var mMembersDetailList: ArrayList<User>
     // END
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,12 +45,17 @@ class CardDetailsActivity : BaseActivity() {
         et_name_card_details.setText(mBoardDetails.taskList[mTaskListPosition].cards[mCardPosition].name)
         et_name_card_details.setSelection(et_name_card_details.text.toString().length) // The cursor after the string length
 
-        // TODO (Step 11: Add a click event for selecting a label color and launch the dialog.)
+        // TODO (Step 1: Get the already selected label color and set it to the TextView background.)
         // START
+        mSelectedColor = mBoardDetails.taskList[mTaskListPosition].cards[mCardPosition].labelColor
+        if (mSelectedColor.isNotEmpty()) {
+            setColor()
+        }
+        // END
+
         tv_select_label_color.setOnClickListener {
             labelColorsListDialog()
         }
-        // END
 
         btn_update_card_details.setOnClickListener {
             if (et_name_card_details.text.toString().isNotEmpty()) {
@@ -104,6 +113,13 @@ class CardDetailsActivity : BaseActivity() {
         if (intent.hasExtra(Constants.BOARD_DETAIL)) {
             mBoardDetails = intent.getParcelableExtra(Constants.BOARD_DETAIL) as Board
         }
+
+        // TODO (Step 11: Get the members detail list here through intent.)
+        // START
+        if (intent.hasExtra(Constants.BOARD_MEMBERS_LIST)) {
+            mMembersDetailList = intent.getParcelableArrayListExtra(Constants.BOARD_MEMBERS_LIST)!!
+        }
+        // END
     }
 
     /**
@@ -122,8 +138,6 @@ class CardDetailsActivity : BaseActivity() {
      */
     private fun updateCardDetails() {
 
-        // TODO (Step 13: Pass the selected label color of the card in the data model class.)
-        // START
         // Here we have updated the card name using the data model class.
         val card = Card(
             et_name_card_details.text.toString(),
@@ -131,7 +145,9 @@ class CardDetailsActivity : BaseActivity() {
             mBoardDetails.taskList[mTaskListPosition].cards[mCardPosition].assignedTo,
             mSelectedColor
         )
-        // END
+
+        val taskList: ArrayList<Task> = mBoardDetails.taskList
+        taskList.removeAt(taskList.size - 1)
 
         // Here we have assigned the update card details to the task list using the card position.
         mBoardDetails.taskList[mTaskListPosition].cards[mCardPosition] = card
@@ -193,8 +209,6 @@ class CardDetailsActivity : BaseActivity() {
         FirestoreClass().addUpdateTaskList(this@CardDetailsActivity, mBoardDetails)
     }
 
-    // TODO (Step 7: Create a function to remove the text and set the label color to the TextView.)
-    // START
     /**
      * A function to remove the text and set the label color to the TextView.
      */
@@ -202,10 +216,7 @@ class CardDetailsActivity : BaseActivity() {
         tv_select_label_color.text = ""
         tv_select_label_color.setBackgroundColor(Color.parseColor(mSelectedColor))
     }
-    // END
 
-    // TODO (Step 6: Create a function to add some static label colors in the list.)
-    // START
     /**
      * A function to add some static label colors in the list.
      */
@@ -222,10 +233,7 @@ class CardDetailsActivity : BaseActivity() {
 
         return colorsList
     }
-    // END
 
-    // TODO (Step 10: Create a function to launch the label color list dialog.)
-    // START
     /**
      * A function to launch the label color list dialog.
      */
@@ -233,10 +241,13 @@ class CardDetailsActivity : BaseActivity() {
 
         val colorsList: ArrayList<String> = colorsList()
 
+        // TODO (Step 2: Pass the selected color to show it as already selected with tick icon in the list.)
+        // START
         val listDialog = object : LabelColorListDialog(
             this@CardDetailsActivity,
             colorsList,
-            resources.getString(R.string.str_select_label_color)
+            resources.getString(R.string.str_select_label_color),
+            mSelectedColor
         ) {
             override fun onItemSelected(color: String) {
                 mSelectedColor = color
@@ -244,6 +255,6 @@ class CardDetailsActivity : BaseActivity() {
             }
         }
         listDialog.show()
+        // END
     }
-    // END
 }

@@ -1,6 +1,7 @@
 package com.projemanag.adapters
 
 import android.content.Context
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -48,9 +49,19 @@ open class CardListItemsAdapter(
 
         if (holder is MyViewHolder) {
 
+            // TODO (Step 3: As we have already have a View Item for label color so make it visible and set the selected label color.)
+            // START
+            if (model.labelColor.isNotEmpty()) {
+                holder.itemView.view_label_color.visibility = View.VISIBLE
+                holder.itemView.view_label_color.setBackgroundColor(Color.parseColor(model.labelColor))
+            } else {
+                holder.itemView.view_label_color.visibility = View.GONE
+            }
+            // END
+
             holder.itemView.tv_card_name.text = model.name
 
-            holder.itemView.setOnClickListener{
+            holder.itemView.setOnClickListener {
                 if (onClickListener != null) {
                     onClickListener!!.onClick(position)
                 }

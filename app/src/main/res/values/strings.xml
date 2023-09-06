@@ -56,8 +56,5 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
 
-    <!--TODO (Step 8: All the string values are added here.)-->
-    <!--START-->
     <string name="str_select_label_color">Select Label Color</string>
-    <!--END-->
 </resources>

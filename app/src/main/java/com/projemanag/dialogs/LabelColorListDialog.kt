@@ -10,8 +10,6 @@ import com.projemanag.R
 import com.projemanag.adapters.LabelColorListItemsAdapter
 import kotlinx.android.synthetic.main.dialog_list.view.*
 
-// TODO (Step 5: Create an dialogs package and a class for showing the label color list dialog.)
-// START
 abstract class LabelColorListDialog(
     context: Context,
     private var list: ArrayList<String>,
@@ -49,4 +47,3 @@ abstract class LabelColorListDialog(
 
     protected abstract fun onItemSelected(color: String)
 }
-// END

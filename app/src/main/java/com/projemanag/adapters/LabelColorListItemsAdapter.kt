@@ -10,8 +10,6 @@ import com.projemanag.R
 import kotlinx.android.synthetic.main.item_label_color.view.*
 import java.util.*
 
-// TODO (Step 4: Create an adapter class for selection of card label color using the "item_label_color".)
-// START
 class LabelColorListItemsAdapter(
     private val context: Context,
     private var list: ArrayList<String>,
@@ -63,4 +61,3 @@ class LabelColorListItemsAdapter(
         fun onClick(position: Int, color: String)
     }
 }
-// END

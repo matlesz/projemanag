@@ -15,6 +15,8 @@ open class MemberListItemsAdapter(
     private var list: ArrayList<User>
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
+    private var onClickListener: OnClickListener? = null
+
     /**
      * Inflates the item views which is designed in xml layout file
      *
@@ -55,6 +57,24 @@ open class MemberListItemsAdapter(
 
             holder.itemView.tv_member_name.text = model.name
             holder.itemView.tv_member_email.text = model.email
+
+            if (model.selected) {
+                holder.itemView.iv_selected_member.visibility = View.VISIBLE
+            } else {
+                holder.itemView.iv_selected_member.visibility = View.GONE
+            }
+
+            holder.itemView.setOnClickListener {
+
+                if (onClickListener != null) {
+
+                    if (model.selected) {
+                        onClickListener!!.onClick(position, model)
+                    } else {
+                        onClickListener!!.onClick(position, model)
+                    }
+                }
+            }
         }
     }
 
@@ -63,6 +83,20 @@ open class MemberListItemsAdapter(
      */
     override fun getItemCount(): Int {
         return list.size
+    }
+
+    /**
+     * A function for OnClickListener where the Interface is the expected parameter..
+     */
+    fun setOnClickListener(onClickListener: OnClickListener) {
+        this.onClickListener = onClickListener
+    }
+
+    /**
+     * An interface for onclick items.
+     */
+    interface OnClickListener {
+        fun onClick(position: Int, user: User)
     }
 
     /**
