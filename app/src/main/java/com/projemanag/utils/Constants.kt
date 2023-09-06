@@ -32,11 +32,8 @@ object Constants {
 
     const val BOARD_MEMBERS_LIST: String = "board_members_list"
 
-    // TODO (Step 1: Add the constants here.)
-    // START
     const val SELECT: String = "Select"
     const val UN_SELECT: String = "UnSelect"
-    // END
 
     //A unique code for asking the Read Storage Permission using this we will be check and identify in the method onRequestPermissionsResult
     const val READ_STORAGE_PERMISSION_CODE = 1
