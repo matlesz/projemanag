@@ -33,7 +33,13 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
 
-        <activity android:name=".activities.MainActivity" />
+        <!--TODO (Step 10: Modify the activity tag for MainActivity.)-->
+        <!--START-->
+        <activity
+            android:name=".activities.MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <!--END-->
     </application>
 
 </manifest>
