@@ -232,8 +232,6 @@ class FirestoreClass {
                 }
     }
 
-    // TODO (Step 7: Change the function parameters as required and also pass the result based on activity instance.)
-    // START
     /**
      * A function to get the list of user details which is assigned to the board.
      */
@@ -268,7 +266,6 @@ class FirestoreClass {
                     }else if(activity is TaskListActivity){
                         activity.hideProgressDialog()
                     }
-
                     Log.e(
                             activity.javaClass.simpleName,
                             "Error while creating a board.",
@@ -276,7 +273,6 @@ class FirestoreClass {
                     )
                 }
     }
-    // END
 
     /**
      * A function to get the user details from Firestore Database using the email address.

@@ -12,8 +12,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.projemanag.R
 import com.projemanag.activities.TaskListActivity
-import com.projemanag.model.Card
 import com.projemanag.model.Task
+import com.projemanag.model.User
 import kotlinx.android.synthetic.main.item_task.view.*
 
 open class TaskListItemsAdapter(
@@ -138,8 +138,9 @@ open class TaskListItemsAdapter(
                         if (context is TaskListActivity) {
                             context.addCardToTaskList(position, cardName)
                         }
-                    }else{
-                        Toast.makeText(context, "Please Enter Card Detail.", Toast.LENGTH_SHORT).show()
+                    } else {
+                        Toast.makeText(context, "Please Enter Card Detail.", Toast.LENGTH_SHORT)
+                            .show()
                     }
                 }
             }
@@ -147,13 +148,13 @@ open class TaskListItemsAdapter(
             holder.itemView.rv_card_list.layoutManager = LinearLayoutManager(context)
             holder.itemView.rv_card_list.setHasFixedSize(true)
 
-            val adapter = CardListItemsAdapter(context, model.cards)
+            val adapter =
+                CardListItemsAdapter(context, model.cards)
             holder.itemView.rv_card_list.adapter = adapter
 
             adapter.setOnClickListener(object :
                 CardListItemsAdapter.OnClickListener {
                 override fun onClick(cardPosition: Int) {
-
                     if (context is TaskListActivity) {
                         context.cardDetails(position, cardPosition)
                     }
