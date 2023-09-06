@@ -26,16 +26,14 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.content_main.*
 
+
 class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     // A global variable for User Name
     private lateinit var mUserName: String
 
-    // TODO (Step 2: Add a global variable for SharedPreferences.)
-    // START
     // A global variable for SharedPreferences
     private lateinit var mSharedPreferences: SharedPreferences
-    // END
 
     /**
      * This function is auto created by Android when the Activity Class is created.
@@ -52,14 +50,9 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         // Assign the NavigationView.OnNavigationItemSelectedListener to navigation view.
         nav_view.setNavigationItemSelectedListener(this)
 
-        // TODO (Step 3: Initialize the mSharedPreferences variable.)
-        // START
         mSharedPreferences =
             this.getSharedPreferences(Constants.PROGEMANAG_PREFERENCES, Context.MODE_PRIVATE)
-        // END
 
-        // TODO (Step 7: Get the FCM token and update it in the database.)
-        // START
         // Variable is used get the value either token is updated in the database or not.
         val tokenUpdated = mSharedPreferences.getBoolean(Constants.FCM_TOKEN_UPDATED, false)
 
@@ -75,7 +68,6 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                 updateFCMToken(instanceIdResult.token)
             }
         }
-        // END
 
         fab_create_board.setOnClickListener {
             val intent = Intent(this@MainActivity, CreateBoardActivity::class.java)
@@ -107,10 +99,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                 // Here sign outs the user from firebase in this device.
                 FirebaseAuth.getInstance().signOut()
 
-                // TODO (Step 8: Clear the shared preferences when the user signOut.)
-                // START
                 mSharedPreferences.edit().clear().apply()
-                // END
 
                 // Send the user to the intro screen of the application.
                 val intent = Intent(this, IntroActivity::class.java)
@@ -201,8 +190,6 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         }
     }
 
-    // TODO (Step 6: Create a function to update the user's FCM token into the database)
-    // START
     /**
      * A function to update the user's FCM token into the database.
      */
@@ -216,7 +203,6 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         showProgressDialog(resources.getString(R.string.please_wait))
         FirestoreClass().updateUserProfileData(this@MainActivity, userHashMap)
     }
-    // END
 
     /**
      * A function to populate the result of BOARDS list in the UI i.e in the recyclerView.
@@ -251,8 +237,6 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         }
     }
 
-    // TODO (Step 4: Create a function to notify the token is updated successfully in the database.)
-    // START
     /**
      * A function to notify the token is updated successfully in the database.
      */
@@ -271,7 +255,6 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         showProgressDialog(resources.getString(R.string.please_wait))
         FirestoreClass().loadUserData(this@MainActivity, true)
     }
-    // END
 
     /**
      * A companion object to declare the constants.

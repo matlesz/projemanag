@@ -14,7 +14,10 @@ import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.projemanag.R
 import com.projemanag.activities.MainActivity
+import com.projemanag.activities.SignInActivity
+import com.projemanag.firebase.FirestoreClass
 import com.projemanag.utils.Constants
+
 
 class MyFirebaseMessagingService : FirebaseMessagingService() {
 
@@ -39,10 +42,21 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         // Not getting messages here? See why this may be: https://goo.gl/39bRNJ
         Log.d(TAG, "From: ${remoteMessage.from}")
 
+        // TODO (Step 7: Once the notification is sent successfully it will be received here.)
+        // START
         // Check if message contains a data payload.
         remoteMessage.data.isNotEmpty().let {
-            Log.d(TAG, "Message data payload: " + remoteMessage.data)
+            // The notification data payload is printed in the log.
+            Log.i(TAG, "Message data payload: " + remoteMessage.data)
+
+            // The Title and Message are assigned to the local variables
+            val title = remoteMessage.data[Constants.FCM_KEY_TITLE]!!
+            val message = remoteMessage.data[Constants.FCM_KEY_MESSAGE]!!
+
+            // Finally sent them to build a notification.
+            sendNotification(title, message)
         }
+        // END
 
         // Check if message contains a notification payload.
         remoteMessage.notification?.let {
@@ -79,17 +93,36 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
      * @param token The new token.
      */
     private fun sendRegistrationToServer(token: String?) {
-        Log.e(TAG, "Token : $token")
+        // Here we have saved the token in the Shared Preferences
+        val sharedPreferences =
+            this.getSharedPreferences(Constants.PROGEMANAG_PREFERENCES, Context.MODE_PRIVATE)
+        val editor: SharedPreferences.Editor = sharedPreferences.edit()
+        editor.putString(Constants.FCM_TOKEN, token)
+        editor.apply()
     }
 
+    // TODO (Step 6: Change the notification definition as add the parameters for title and message.)
     /**
      * Create and show a simple notification containing the received FCM message.
      *
      * @param messageBody FCM message body received.
      */
-    private fun sendNotification(messageBody: String) {
-        val intent = Intent(this, MainActivity::class.java)
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+    private fun sendNotification(title: String, message: String) {
+
+        // TODO (Step 9: Now once the notification is received and visible in the notification tray than we can navigate them into the app as per requirement.)
+        // START
+        // As here we will navigate them to the main screen if user is already logged in or to the login screen.
+        val intent: Intent = if (FirestoreClass().getCurrentUserID().isNotEmpty()) {
+            Intent(this, MainActivity::class.java)
+        } else {
+            Intent(this, SignInActivity::class.java)
+        }
+        // Before lauching the screen add some flags to avoid duplication of activities.
+        intent.flags = (Intent.FLAG_ACTIVITY_NEW_TASK
+                or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                or Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        // END
+
         val pendingIntent = PendingIntent.getActivity(
             this, 0 /* Request code */, intent,
             PendingIntent.FLAG_ONE_SHOT
@@ -99,8 +132,11 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         val defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
         val notificationBuilder = NotificationCompat.Builder(this, channelId)
             .setSmallIcon(R.drawable.ic_stat_ic_notification)
-            .setContentTitle("Title")
-            .setContentText("Message")
+            // TODO (Step 8: Set the title and message for the notification which will be visible in the notification tray.)
+            // START
+            .setContentTitle(title)
+            .setContentText(message)
+            // END
             .setAutoCancel(true)
             .setSound(defaultSoundUri)
             .setContentIntent(pendingIntent)

@@ -94,8 +94,6 @@ class FirestoreClass {
             }
     }
 
-    // TODO (Step 5: Change the parameters as per requirement and send the result to the base activity based on the instance.)
-    // START
     /**
      * A function to update the user profile data into the database.
      */
@@ -134,7 +132,6 @@ class FirestoreClass {
                 )
             }
     }
-    // END
 
     /**
      * A function for creating a board and making an entry in the database.
