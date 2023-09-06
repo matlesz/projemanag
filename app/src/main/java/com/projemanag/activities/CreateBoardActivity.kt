@@ -17,10 +17,12 @@ import java.io.IOException
 
 class CreateBoardActivity : BaseActivity() {
 
-    // TODO (Step 3: Add a global variable for URI of a selected image from phone storage.)
-    // START
     // Add a global variable for URI of a selected image from phone storage.
     private var mSelectedImageFileUri: Uri? = null
+
+    // TODO (Step 5: Create a global variable for User name)
+    // START
+    private lateinit var mUserName: String
     // END
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,8 +31,13 @@ class CreateBoardActivity : BaseActivity() {
 
         setupActionBar()
 
-        // TODO (Step 4: Add click event for iv_board_image.)
+        // TODO (Step 6: Get the username from the intent.)
         // START
+        if (intent.hasExtra(Constants.NAME)) {
+            mUserName = intent.getStringExtra(Constants.NAME)!!
+        }
+        // END
+
         iv_board_image.setOnClickListener { view ->
 
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
@@ -48,11 +55,8 @@ class CreateBoardActivity : BaseActivity() {
                 )
             }
         }
-        // END
     }
 
-    // TODO (Step 5: Here the read storage permission result will be handled. And further execution will be done.)
-    // START
     /**
      * This function will notify the user after tapping on allow or deny
      *
@@ -80,10 +84,7 @@ class CreateBoardActivity : BaseActivity() {
             }
         }
     }
-    // END
 
-    // TODO (Step 6: Get the result of the image selection based on the constant code.)
-    // START
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK
@@ -105,7 +106,6 @@ class CreateBoardActivity : BaseActivity() {
             }
         }
     }
-    // END
 
     /**
      * A function to setup action bar
@@ -122,4 +122,17 @@ class CreateBoardActivity : BaseActivity() {
 
         toolbar_create_board_activity.setNavigationOnClickListener { onBackPressed() }
     }
+
+    // TODO (Step 8: Create a function which will notify the success of board creation.)
+    // START
+    /**
+     * A function for notifying the board is created successfully.
+     */
+    fun boardCreatedSuccessfully() {
+
+        hideProgressDialog()
+
+        finish()
+    }
+    // END
 }

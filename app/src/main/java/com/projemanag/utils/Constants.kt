@@ -12,13 +12,17 @@ object Constants {
     // This  is used for the collection name for USERS.
     const val USERS: String = "users"
 
+    // TODO (Step 7: Add constant variable for Boards.)
+    // START
+    // This  is used for the collection name for USERS.
+    const val BOARDS: String = "boards"
+    // END
+
     // Firebase database field names
     const val IMAGE: String = "image"
     const val NAME: String = "name"
     const val MOBILE: String = "mobile"
 
-    // TODO (Step 2: Move all constants and function here and make them public and change accordingly.)
-    // START
     //A unique code for asking the Read Storage Permission using this we will be check and identify in the method onRequestPermissionsResult
     const val READ_STORAGE_PERMISSION_CODE = 1
     // A unique code of image selection from Phone Storage.
@@ -53,5 +57,4 @@ object Constants {
         return MimeTypeMap.getSingleton()
             .getExtensionFromMimeType(activity.contentResolver.getType(uri!!))
     }
-    // END
 }

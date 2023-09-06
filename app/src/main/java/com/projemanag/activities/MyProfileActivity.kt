@@ -22,11 +22,6 @@ import java.io.IOException
 
 class MyProfileActivity : BaseActivity() {
 
-    // TODO (Step 1: Move the list of Items below to Constants file so we can re-use them in the CreateBoardActivity
-    //  1.  Function showImageChooser().
-    //  2. Function getFileExtension(uri: Uri?).
-    //  3. Constants of Companion Object for Selecting image from phone storage and Read storage permission code.)
-
     // Add a global variable for URI of a selected image from phone storage.
     private var mSelectedImageFileUri: Uri? = null
 
