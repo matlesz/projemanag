@@ -10,8 +10,6 @@ import com.projemanag.R
 import com.projemanag.model.Board
 import kotlinx.android.synthetic.main.item_board.view.*
 
-// TODO (Step 6: Create an adapter class for Board Items in the MainActivity.)
-// START
 open class BoardItemsAdapter(
     private val context: Context,
     private var list: ArrayList<Board>

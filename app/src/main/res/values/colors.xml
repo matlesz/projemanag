@@ -9,8 +9,6 @@
 
     <color name="snackbar_error_color">#F72400</color>
 
-    <!--TODO (Step 3: All the color values are added here.)-->
-    <!--START-->
     <color name="divider_color">#EAEAEA</color>
 
 </resources>

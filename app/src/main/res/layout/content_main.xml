@@ -1,7 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--TODO (Step 1: Design the main screen.)-->
-<!--START-->
-<!--Here all the constants are added in their respective folders and files. -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -38,4 +35,3 @@
 
     </androidx.cardview.widget.CardView>
 </LinearLayout>
-    <!--END-->
