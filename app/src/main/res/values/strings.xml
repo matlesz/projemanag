@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name">Projemanag</string>
-<<<<<<< HEAD
-=======
 
     <string name="image_contentDescription">image</string>
     <string name="let_s_get_started_text">Let\'s Get started</string>
@@ -18,5 +16,7 @@
 
     <string name="please_click_back_again_to_exit">Please click back again to exit.</string>
     <string name="please_wait">Please Wait&#8230;</string>
->>>>>>> Firebase-login-implementation
+
+    <string name="nav_my_profile">My Profile</string>
+    <string name="nav_sign_out">Sign Out</string>
 </resources>

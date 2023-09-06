@@ -1,11 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-<<<<<<< HEAD
-    <!--TODO (Step 5: Added the dimen values in this file.)-->
-    <!--START-->
-    <dimen name="splash_screen_title_text_size">70sp</dimen>
-    <!--END-->
-=======
     <dimen name="splash_screen_title_text_size">70sp</dimen>
 
     <dimen name="intro_screen_title_text_size">40sp</dimen>
@@ -42,5 +36,13 @@
     <dimen name="progress_bar_size">50dp</dimen>
     <dimen name="progress_text_marginStart">16dp</dimen>
     <dimen name="progress_text_size">16sp</dimen>
->>>>>>> Firebase-login-implementation
+
+    <dimen name="height_of_nav_main">200dp</dimen>
+    <dimen name="nav_image_size">80dp</dimen>
+    <dimen name="nav_content_margin_StartEnd">16dp</dimen>
+    <dimen name="nav_content_margin_top">5dp</dimen>
+    <dimen name="nav_content_margin_bottom">10dp</dimen>
+    <dimen name="nav_user_name_text_size">18sp</dimen>
+    <dimen name="nav_image_circular_border_width">1dp</dimen>
+    <dimen name="nav_divider_height">0.5dp</dimen>
 </resources>

@@ -9,16 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-<<<<<<< HEAD
-
-        <!--TODO (Step 3: Modify the tag and make it a launcher activity. Which will be called when the app is launched.)-->
-        <!--START-->
-        <activity
-            android:name=".SplashActivity"
-=======
         <activity
             android:name=".activities.SplashActivity"
->>>>>>> Firebase-login-implementation
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -27,11 +19,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-<<<<<<< HEAD
-        <!--END-->
-
-        <activity android:name=".MainActivity" />
-=======
         <activity
             android:name=".activities.IntroActivity"
             android:screenOrientation="portrait"
@@ -46,8 +33,10 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
 
-        <activity android:name=".activities.MainActivity" />
->>>>>>> Firebase-login-implementation
+        <activity
+            android:name=".activities.MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

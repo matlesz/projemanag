@@ -35,9 +35,6 @@ class SplashActivity : AppCompatActivity() {
         // Adding the handler to after the a task after some delay.
         Handler().postDelayed({
 
-            // TODO (Step 2: Check if the current user id is not blank then send the user to MainActivity as he have logged in
-            //  before or else send him to Intro Screen as earlier.)
-            // START
             // Here if the user is signed in once and not signed out again from the app. So next time while coming into the app
             // we will redirect him to MainScreen or else to the Intro Screen as it was before.
 
@@ -53,7 +50,6 @@ class SplashActivity : AppCompatActivity() {
                 startActivity(Intent(this@SplashActivity, IntroActivity::class.java))
             }
             finish() // Call this when your activity is done and should be closed.
-            // END
         }, 2500) // Here we pass the delay time in milliSeconds after which the splash activity will disappear.
     }
 }
