@@ -57,13 +57,10 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
 
-        <!--TODO (Step 2: Modify the activity tag as per requirement.)-->
-        <!--START-->
         <activity
             android:name=".activities.MembersActivity"
             android:label="@string/members"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-        <!--END-->
     </application>
 </manifest>

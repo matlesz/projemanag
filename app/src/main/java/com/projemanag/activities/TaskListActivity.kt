@@ -51,8 +51,6 @@ class TaskListActivity : BaseActivity() {
         toolbar_task_list_activity.setNavigationOnClickListener { onBackPressed() }
     }
 
-    // TODO (Step 7: Inflate the action menu for TaskListScreen and also launch the MembersActivity Screen on item selection.)
-    // START
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         // Inflate the menu to use in the action bar
         menuInflater.inflate(R.menu.menu_members, menu)
@@ -64,13 +62,17 @@ class TaskListActivity : BaseActivity() {
         when (item.itemId) {
             R.id.action_members -> {
 
-                startActivity(Intent(this@TaskListActivity, MembersActivity::class.java))
+                // TODO (Step 2: Pass the board details through intent.)
+                // START
+                val intent = Intent(this@TaskListActivity, MembersActivity::class.java)
+                intent.putExtra(Constants.BOARD_DETAIL, mBoardDetails)
+                startActivity(intent)
+                // END
                 return true
             }
         }
         return super.onOptionsItemSelected(item)
     }
-    // END
 
     /**
      * A function to get the result of Board Detail.

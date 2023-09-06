@@ -36,8 +36,5 @@
     <string name="hint_card_name">Card Name</string>
     <string name="add_list">Add List</string>
 
-    <!--TODO (Step 5: All the dimen values are added here.)-->
-    <!--START-->
     <string name="members">Members</string>
-    <!--END-->
 </resources>

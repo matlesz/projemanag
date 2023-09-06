@@ -23,6 +23,11 @@ object Constants {
     const val DOCUMENT_ID: String = "documentId"
     const val TASK_LIST: String = "taskList"
 
+    // TODO (Step 1: Add constant for passing the board details through intent.)
+    // START
+    const val BOARD_DETAIL: String = "board_detail"
+    // END
+
     //A unique code for asking the Read Storage Permission using this we will be check and identify in the method onRequestPermissionsResult
     const val READ_STORAGE_PERMISSION_CODE = 1
     // A unique code of image selection from Phone Storage.
