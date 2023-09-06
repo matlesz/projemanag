@@ -3,8 +3,6 @@ package com.projemanag.model
 import android.os.Parcel
 import android.os.Parcelable
 
-// TODO (Step 1: Add a data model class for the Selected Members class.)
-// START
 data class SelectedMembers(
     val id: String = "",
     val image: String = ""
@@ -32,4 +30,3 @@ data class SelectedMembers(
             }
     }
 }
-// END

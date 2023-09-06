@@ -25,8 +25,11 @@ class TaskListActivity : BaseActivity() {
     // A global variable for board document id as mBoardDocumentId
     private lateinit var mBoardDocumentId: String
 
+    // TODO (Make the variable public.)
+    // START
     // A global variable for Assigned Members List.
-    private lateinit var mAssignedMembersDetailList: ArrayList<User>
+    lateinit var mAssignedMembersDetailList: ArrayList<User>
+    // END
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -81,7 +84,7 @@ class TaskListActivity : BaseActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK
-                && (requestCode == MEMBERS_REQUEST_CODE || requestCode == CARD_DETAILS_REQUEST_CODE)
+            && (requestCode == MEMBERS_REQUEST_CODE || requestCode == CARD_DETAILS_REQUEST_CODE)
         ) {
             // Show the progress dialog.
             showProgressDialog(resources.getString(R.string.please_wait))
@@ -103,17 +106,20 @@ class TaskListActivity : BaseActivity() {
         // Call the function to setup action bar.
         setupActionBar()
 
-        // Here we are appending an item view for adding a list task list for the board.
+        // TODO (Step 2.1: Cut and the commented code to the next location.)
+        // START
+        /*// Here we are appending an item view for adding a list task list for the board.
         val addTaskList = Task(resources.getString(R.string.add_list))
         mBoardDetails.taskList.add(addTaskList)
 
         rv_task_list.layoutManager =
-                LinearLayoutManager(this@TaskListActivity, LinearLayoutManager.HORIZONTAL, false)
+            LinearLayoutManager(this@TaskListActivity, LinearLayoutManager.HORIZONTAL, false)
         rv_task_list.setHasFixedSize(true)
 
         // Create an instance of TaskListItemsAdapter and pass the task list to it.
         val adapter = TaskListItemsAdapter(this@TaskListActivity, mBoardDetails.taskList)
-        rv_task_list.adapter = adapter // Attach the adapter to the recyclerView.
+        rv_task_list.adapter = adapter // Attach the adapter to the recyclerView.*/
+        // END
 
         // Show the progress dialog.
         showProgressDialog(resources.getString(R.string.please_wait))
@@ -200,9 +206,9 @@ class TaskListActivity : BaseActivity() {
         cardsList.add(card)
 
         val task = Task(
-                mBoardDetails.taskList[position].title,
-                mBoardDetails.taskList[position].createdBy,
-                cardsList
+            mBoardDetails.taskList[position].title,
+            mBoardDetails.taskList[position].createdBy,
+            cardsList
         )
 
         mBoardDetails.taskList[position] = task
@@ -232,6 +238,21 @@ class TaskListActivity : BaseActivity() {
         mAssignedMembersDetailList = list
 
         hideProgressDialog()
+
+        // TODO (Step 2.2: Paste the commented code here.)
+        // START
+        // Here we are appending an item view for adding a list task list for the board.
+        val addTaskList = Task(resources.getString(R.string.add_list))
+        mBoardDetails.taskList.add(addTaskList)
+
+        rv_task_list.layoutManager =
+            LinearLayoutManager(this@TaskListActivity, LinearLayoutManager.HORIZONTAL, false)
+        rv_task_list.setHasFixedSize(true)
+
+        // Create an instance of TaskListItemsAdapter and pass the task list to it.
+        val adapter = TaskListItemsAdapter(this@TaskListActivity, mBoardDetails.taskList)
+        rv_task_list.adapter = adapter // Attach the adapter to the recyclerView.
+        // END
     }
 
     /**
