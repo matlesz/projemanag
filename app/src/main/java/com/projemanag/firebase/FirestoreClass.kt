@@ -258,8 +258,6 @@ class FirestoreClass {
             }
     }
 
-    // TODO (Step 4: Create a function to get the user details from Firestore Database using the email address.)
-    // START
     /**
      * A function to get the user details from Firestore Database using the email address.
      */
@@ -292,10 +290,7 @@ class FirestoreClass {
                 )
             }
     }
-    // END
 
-    // TODO (Step 8: Create a function to assign a updated members list to board.)
-    // START
     /**
      * A function to assign a updated members list to board.
      */
@@ -316,7 +311,6 @@ class FirestoreClass {
                 Log.e(activity.javaClass.simpleName, "Error while creating a board.", e)
             }
     }
-    // END
 
     /**
      * A function for getting the user id of current logged user.

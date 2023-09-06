@@ -1,11 +1,11 @@
 package com.projemanag.activities
 
+import android.app.Activity
 import android.app.Dialog
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.projemanag.R
 import com.projemanag.adapters.MemberListItemsAdapter
@@ -21,10 +21,13 @@ class MembersActivity : BaseActivity() {
     // A global variable for Board Details.
     private lateinit var mBoardDetails: Board
 
-    // TODO (Step 1: A global variable for Users List.)
-    // START
     // A global variable for Assigned Members List.
-    private lateinit var mAssignedMembersList:ArrayList<User>
+    private lateinit var mAssignedMembersList: ArrayList<User>
+
+    // TODO (Step 3: Declare a global variable for notifying any changes done or not.)
+    // START
+    // A global variable for notifying any changes done or not in the assigned members list.
+    private var anyChangesDone: Boolean = false
     // END
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,6 +47,16 @@ class MembersActivity : BaseActivity() {
             mBoardDetails.assignedTo
         )
     }
+
+    // TODO (Step 5: Send the result to the base activity onBackPressed.)
+    // START
+    override fun onBackPressed() {
+        if (anyChangesDone) {
+            setResult(Activity.RESULT_OK)
+        }
+        super.onBackPressed()
+    }
+    // END
 
     /**
      * A function to setup action bar
@@ -84,10 +97,7 @@ class MembersActivity : BaseActivity() {
      */
     fun setupMembersList(list: ArrayList<User>) {
 
-        // TODO (Step 2: Initialize the Assigned Members List.)
-        // START
         mAssignedMembersList = list
-        // END
 
         hideProgressDialog()
 
@@ -97,7 +107,6 @@ class MembersActivity : BaseActivity() {
         val adapter = MemberListItemsAdapter(this@MembersActivity, list)
         rv_members_list.adapter = adapter
     }
-
 
     /**
      * Method is used to show the Custom Dialog.
@@ -114,12 +123,9 @@ class MembersActivity : BaseActivity() {
             if (email.isNotEmpty()) {
                 dialog.dismiss()
 
-                // TODO (Step 5: Get the member details from the database.)
-                // START
                 // Show the progress dialog.
                 showProgressDialog(resources.getString(R.string.please_wait))
                 FirestoreClass().getMemberDetails(this@MembersActivity, email)
-                // END
             } else {
                 showErrorSnackBar("Please enter members email address.")
                 /*Toast.makeText(
@@ -135,25 +141,14 @@ class MembersActivity : BaseActivity() {
         //Start the dialog and display it on screen.
         dialog.show()
     }
-    // END
 
-    // TODO (Step 3: Here we will get the result of the member if it found in the database.)
-    // START
     fun memberDetails(user: User) {
 
-        // TODO (Step 6: Here add the user id to the existing assigned members list of the board.)
-        // START
         mBoardDetails.assignedTo.add(user.id)
 
-        // TODO (Step 9: Finally assign the member to the board.)
-        // START
         FirestoreClass().assignMemberToBoard(this@MembersActivity, mBoardDetails, user)
-        // ENDss
     }
-    // END
 
-    // TODO (Step 7: Initialize the dialog for searching member from Database.)
-    // START
     /**
      * A function to get the result of assigning the members.
      */
@@ -163,7 +158,11 @@ class MembersActivity : BaseActivity() {
 
         mAssignedMembersList.add(user)
 
+        // TODO (Step 4: Here the list is updated so change the global variable which we have declared for notifying changes.)
+        // START
+        anyChangesDone = true
+        // END
+
         setupMembersList(mAssignedMembersList)
     }
-    // END
 }
