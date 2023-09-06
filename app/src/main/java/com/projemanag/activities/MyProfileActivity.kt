@@ -27,14 +27,11 @@ class MyProfileActivity : BaseActivity() {
     // Add a global variable for URI of a selected image from phone storage.
     private var mSelectedImageFileUri: Uri? = null
 
-    // TODO (Step 6: Add the global variables for UserDetails and Profile Image URL.)
-    // START
     // A global variable for user details.
     private lateinit var mUserDetails: User
 
     // A global variable for a user profile image URL
     private var mProfileImageURL: String = ""
-    // END
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,8 +59,6 @@ class MyProfileActivity : BaseActivity() {
             }
         }
 
-        // TODO (Step 10: Add a click event for updating the user profile data to the database.)
-        // START
         btn_update.setOnClickListener {
 
             // Here if the image is not selected then update the other details of user.
@@ -78,7 +73,6 @@ class MyProfileActivity : BaseActivity() {
                 updateUserProfileData()
             }
         }
-        // END
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -154,11 +148,8 @@ class MyProfileActivity : BaseActivity() {
      */
     fun setUserDataInUI(user: User) {
 
-        // TODO (Step 7: Initialize the user details variable)
-        // START
         // Initialize the user details variable
         mUserDetails = user
-        // END
 
         Glide
             .with(this@MyProfileActivity)
@@ -187,16 +178,6 @@ class MyProfileActivity : BaseActivity() {
         startActivityForResult(galleryIntent, PICK_IMAGE_REQUEST_CODE)
     }
 
-    // TODO (Step 3: Create a function to upload the selected user image to storage and get the url of it to store in the database.)
-    // START
-    // Before start with database we need to perform some steps in Firebase Console and after adding a dependency in Gradle file.
-    // Follow the Steps:
-    // Step 1: Go to the "Storage" tab in the Firebase Console in your project details in the navigation bar under "Develop".
-    // Step 2: In the Storage Page click on the Get Started. Click on Next
-    // Step 3: As we have already selected the storage location while creating the database so now click the Done button.
-    // Step 4: Now the storage bucket is created.
-    // Step 5: For more details visit the link: https://firebase.google.com/docs/storage/android/start
-    // Step 6: Now add the code to upload image.
     /**
      * A function to upload the selected user image to firebase cloud storage.
      */
@@ -246,8 +227,6 @@ class MyProfileActivity : BaseActivity() {
         }
     }
 
-    // TODO (Step 2: Create a function to get the extension of the selected image.)
-    // START
     /**
      * A function to get the extension of selected image.
      */
@@ -263,10 +242,7 @@ class MyProfileActivity : BaseActivity() {
          */
         return MimeTypeMap.getSingleton().getExtensionFromMimeType(contentResolver.getType(uri!!))
     }
-    // END
 
-    // TODO (Step 9: Update the user profile details into the database.)
-    // START
     /**
      * A function to update the user profile details into the database.
      */
@@ -289,10 +265,7 @@ class MyProfileActivity : BaseActivity() {
         // Update the data in the database.
         FirestoreClass().updateUserProfileData(this@MyProfileActivity, userHashMap)
     }
-    // END
 
-    // TODO (Step 4: Create a function to notify the user profile is updated successfully.)
-    // START
     /**
      * A function to notify the user profile is updated successfully.
      */
@@ -300,9 +273,12 @@ class MyProfileActivity : BaseActivity() {
 
         hideProgressDialog()
 
+        // TODO (Step 3: Send the success result to the Base Activity.)
+        // START
+        setResult(Activity.RESULT_OK)
+        // END
         finish()
     }
-    // END
 
     /**
      * A companion object to declare the constants.

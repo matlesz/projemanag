@@ -96,8 +96,6 @@ class FirestoreClass {
             }
     }
 
-    // TODO (Step 5: Create a function to update the user profile data into the database.)
-    // START
     /**
      * A function to update the user profile data into the database.
      */
@@ -123,7 +121,6 @@ class FirestoreClass {
                 )
             }
     }
-    // END
 
     /**
      * A function for getting the user id of current logged user.
