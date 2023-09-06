@@ -76,17 +76,13 @@ class TaskListActivity : BaseActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        // TODO (Step 7: Get the success result from Card Details Activity.)
-        // START
         if (resultCode == Activity.RESULT_OK
             && (requestCode == MEMBERS_REQUEST_CODE || requestCode == CARD_DETAILS_REQUEST_CODE)
         ) {
             // Show the progress dialog.
             showProgressDialog(resources.getString(R.string.please_wait))
             FirestoreClass().getBoardDetails(this@TaskListActivity, mBoardDocumentId)
-        }
-        // END
-        else {
+        } else {
             Log.e("Cancelled", "Cancelled")
         }
     }
@@ -213,10 +209,7 @@ class TaskListActivity : BaseActivity() {
         intent.putExtra(Constants.BOARD_DETAIL, mBoardDetails)
         intent.putExtra(Constants.TASK_LIST_ITEM_POSITION, taskListPosition)
         intent.putExtra(Constants.CARD_LIST_ITEM_POSITION, cardPosition)
-        // TODO (Step 6: Update the intent using the start activity for result.)
-        // START
         startActivityForResult(intent, CARD_DETAILS_REQUEST_CODE)
-        // END
     }
 
     /**
@@ -226,9 +219,6 @@ class TaskListActivity : BaseActivity() {
         //A unique code for starting the activity for result
         const val MEMBERS_REQUEST_CODE: Int = 13
 
-        // TODO (Step 5: Add a unique request code for starting the activity for result.)
-        // START
         const val CARD_DETAILS_REQUEST_CODE: Int = 14
-        // END
     }
 }

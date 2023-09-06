@@ -54,6 +54,7 @@
                         android:textSize="@dimen/et_text_size"
                         tools:text="Test" />
                 </com.google.android.material.textfield.TextInputLayout>
+
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
