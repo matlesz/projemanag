@@ -69,8 +69,8 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             R.id.nav_my_profile -> {
 
                 startActivityForResult(
-                        Intent(this@MainActivity, MyProfileActivity::class.java),
-                        MY_PROFILE_REQUEST_CODE
+                    Intent(this@MainActivity, MyProfileActivity::class.java),
+                    MY_PROFILE_REQUEST_CODE
                 )
             }
 
@@ -93,12 +93,12 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         super.onActivityResult(requestCode, resultCode, data)
 
         if (resultCode == Activity.RESULT_OK
-                && requestCode == MY_PROFILE_REQUEST_CODE
+            && requestCode == MY_PROFILE_REQUEST_CODE
         ) {
             // Get the user updated details.
             FirestoreClass().loadUserData(this@MainActivity)
         } else if (resultCode == Activity.RESULT_OK
-                && requestCode == CREATE_BOARD_REQUEST_CODE
+            && requestCode == CREATE_BOARD_REQUEST_CODE
         ) {
             // Get the latest boards list.
             FirestoreClass().getBoardsList(this@MainActivity)
@@ -149,11 +149,11 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
         // Load the user image in the ImageView.
         Glide
-                .with(this@MainActivity)
-                .load(user.image) // URL of the image
-                .centerCrop() // Scale type of the image.
-                .placeholder(R.drawable.ic_user_place_holder) // A default place holder
-                .into(navUserImage) // the view in which the image will be loaded.
+            .with(this@MainActivity)
+            .load(user.image) // URL of the image
+            .centerCrop() // Scale type of the image.
+            .placeholder(R.drawable.ic_user_place_holder) // A default place holder
+            .into(navUserImage) // the view in which the image will be loaded.
 
         // The instance of the user name TextView of the navigation view.
         val navUsername = headerView.findViewById<TextView>(R.id.tv_username)
@@ -187,7 +187,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             rv_boards_list.adapter = adapter // Attach the adapter to the recyclerView.
 
             adapter.setOnClickListener(object :
-                    BoardItemsAdapter.OnClickListener {
+                BoardItemsAdapter.OnClickListener {
                 override fun onClick(position: Int, model: Board) {
                     val intent = Intent(this@MainActivity, TaskListActivity::class.java)
                     intent.putExtra(Constants.DOCUMENT_ID, model.documentId)

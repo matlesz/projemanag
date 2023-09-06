@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.projemanag.R
 import com.projemanag.activities.TaskListActivity
+import com.projemanag.model.Card
 import com.projemanag.model.Task
 import kotlinx.android.synthetic.main.item_task.view.*
 
@@ -148,6 +149,16 @@ open class TaskListItemsAdapter(
 
             val adapter = CardListItemsAdapter(context, model.cards)
             holder.itemView.rv_card_list.adapter = adapter
+
+            adapter.setOnClickListener(object :
+                CardListItemsAdapter.OnClickListener {
+                override fun onClick(cardPosition: Int) {
+
+                    if (context is TaskListActivity) {
+                        context.cardDetails(position, cardPosition)
+                    }
+                }
+            })
         }
     }
 

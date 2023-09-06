@@ -21,17 +21,13 @@ class TaskListActivity : BaseActivity() {
     // A global variable for Board Details.
     private lateinit var mBoardDetails: Board
 
-    // TODO (Step 7: Create global variable for board document id)
-    // START
     // A global variable for board document id as mBoardDocumentId
     private lateinit var mBoardDocumentId: String
-    // END
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_task_list)
 
-        // TODO (Step 6 : Make the document id global.)
         if (intent.hasExtra(Constants.DOCUMENT_ID)) {
             mBoardDocumentId = intent.getStringExtra(Constants.DOCUMENT_ID)!!
         }
@@ -71,22 +67,17 @@ class TaskListActivity : BaseActivity() {
 
                 val intent = Intent(this@TaskListActivity, MembersActivity::class.java)
                 intent.putExtra(Constants.BOARD_DETAIL, mBoardDetails)
-                // TODO (Step 2: Start activity for result.)
-                // START
                 startActivityForResult(intent, MEMBERS_REQUEST_CODE)
                 return true
-                // END
             }
         }
         return super.onOptionsItemSelected(item)
     }
 
-    // TODO (Step 8: Add the onActivityResult function add based on the requested document get the updated board details.)
-    // START
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK
-            && requestCode == MEMBERS_REQUEST_CODE
+            && (requestCode == MEMBERS_REQUEST_CODE || requestCode == CARD_DETAILS_REQUEST_CODE)
         ) {
             // Show the progress dialog.
             showProgressDialog(resources.getString(R.string.please_wait))
@@ -95,7 +86,6 @@ class TaskListActivity : BaseActivity() {
             Log.e("Cancelled", "Cancelled")
         }
     }
-    // END
 
     /**
      * A function to get the result of Board Detail.
@@ -211,14 +201,24 @@ class TaskListActivity : BaseActivity() {
         FirestoreClass().addUpdateTaskList(this@TaskListActivity, mBoardDetails)
     }
 
-    // TODO (Step 1: Create a companion object and declare a constant for starting an MembersActivity for result.)
-    // START
+    /**
+     * A function for viewing and updating card details.
+     */
+    fun cardDetails(taskListPosition: Int, cardPosition: Int) {
+        val intent = Intent(this@TaskListActivity, CardDetailsActivity::class.java)
+        intent.putExtra(Constants.BOARD_DETAIL, mBoardDetails)
+        intent.putExtra(Constants.TASK_LIST_ITEM_POSITION, taskListPosition)
+        intent.putExtra(Constants.CARD_LIST_ITEM_POSITION, cardPosition)
+        startActivityForResult(intent, CARD_DETAILS_REQUEST_CODE)
+    }
+
     /**
      * A companion object to declare the constants.
      */
     companion object {
         //A unique code for starting the activity for result
         const val MEMBERS_REQUEST_CODE: Int = 13
+
+        const val CARD_DETAILS_REQUEST_CODE: Int = 14
     }
-    // END
 }

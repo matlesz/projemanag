@@ -24,11 +24,8 @@ class MembersActivity : BaseActivity() {
     // A global variable for Assigned Members List.
     private lateinit var mAssignedMembersList: ArrayList<User>
 
-    // TODO (Step 3: Declare a global variable for notifying any changes done or not.)
-    // START
     // A global variable for notifying any changes done or not in the assigned members list.
     private var anyChangesDone: Boolean = false
-    // END
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,15 +45,12 @@ class MembersActivity : BaseActivity() {
         )
     }
 
-    // TODO (Step 5: Send the result to the base activity onBackPressed.)
-    // START
     override fun onBackPressed() {
         if (anyChangesDone) {
             setResult(Activity.RESULT_OK)
         }
         super.onBackPressed()
     }
-    // END
 
     /**
      * A function to setup action bar
@@ -158,10 +152,7 @@ class MembersActivity : BaseActivity() {
 
         mAssignedMembersList.add(user)
 
-        // TODO (Step 4: Here the list is updated so change the global variable which we have declared for notifying changes.)
-        // START
         anyChangesDone = true
-        // END
 
         setupMembersList(mAssignedMembersList)
     }
