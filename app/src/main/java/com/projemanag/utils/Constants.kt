@@ -40,6 +40,14 @@ object Constants {
     // A unique code of image selection from Phone Storage.
     const val PICK_IMAGE_REQUEST_CODE = 2
 
+    // TODO(Step 1: Add a SharedPreferences name and key names.)
+    // START
+    const val PROGEMANAG_PREFERENCES: String = "ProjemanagPrefs"
+
+    const val FCM_TOKEN:String = "fcmToken"
+    const val FCM_TOKEN_UPDATED:String = "fcmTokenUpdated"
+    // END
+
     /**
      * A function for user profile image selection from phone storage.
      */

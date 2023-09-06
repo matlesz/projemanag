@@ -14,8 +14,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <!--TODO (Step 4: Add all meta tags as per requirements in manifest. As this are the default one which are provided by firebase.)-->
-        <!--START-->
         <!-- [START fcm_default_icon] -->
         <!-- Set custom default icon. This is used when no icon is set for incoming notification messages.
              See README(https://goo.gl/l4GJaQ) for more. -->
@@ -33,7 +31,7 @@
             android:name="com.google.firebase.messaging.default_notification_channel_id"
             android:value="@string/default_notification_channel_id" />
         <!-- [END fcm_default_channel] -->
-        <!--END-->
+
         <activity
             android:name=".activities.SplashActivity"
             android:screenOrientation="portrait"
@@ -89,8 +87,6 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
 
-        <!--TODO (Step 3: Register firebase Messaging Service class in manifest.)-->
-        <!--START-->
         <service
             android:name=".fcm.MyFirebaseMessagingService"
             android:exported="false">
@@ -98,6 +94,5 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-        <!--END-->
     </application>
 </manifest>
