@@ -16,4 +16,5 @@
         android:textColor="@android:color/white"
         android:textSize="@dimen/splash_screen_title_text_size"
         android:textStyle="bold" />
+
 </LinearLayout>

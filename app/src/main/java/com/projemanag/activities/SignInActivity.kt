@@ -1,43 +1,93 @@
 package com.projemanag.activities
 
+import android.content.Intent
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.WindowManager
-import androidx.appcompat.app.AppCompatActivity
+import android.widget.Toast
+import com.google.firebase.auth.FirebaseAuth
+import com.projemanag.MainActivity
 import com.projemanag.R
-import kotlinx.android.synthetic.main.activity_sign_in.*
+import com.projemanag.databinding.ActivitySignInBinding
+import com.projemanag.firebase.FirestoreClass
+import com.projemanag.models.User
 
-class SignInActivity : AppCompatActivity() {
-    /**
-     * This function is auto created by Android when the Activity Class is created.
-     */
+class SignInActivity : BaseActivity() {
+
+    private lateinit var binding: ActivitySignInBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
-        //This call the parent constructor
         super.onCreate(savedInstanceState)
-        // This is used to align the xml view to this class
-        setContentView(R.layout.activity_sign_in)
+        binding = ActivitySignInBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        // This is used to hide the status bar and make the splash screen as a full screen activity.
+        initialize()
+    }
+
+    private fun initialize(){
         window.setFlags(
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
 
-        setupActionBar()
+        setSupportActionBar(binding.toolbarSignInActivity)
+
+        if(supportActionBar != null){
+            supportActionBar?.setDisplayHomeAsUpEnabled(true)
+            supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_black_color_back_24dp)
+        }
+
+        binding.btnSignIn.setOnClickListener { signInRegisteredUser() }
+    }
+
+    private fun signInRegisteredUser() {
+        val email: String = binding.etEmail.text.toString().trim { it <= ' ' }
+        val password: String = binding.etPassword.text.toString().trim { it <= ' ' }
+
+        if (validateForm(email, password)) {
+            showProgressDialog(resources.getString(R.string.please_wait))
+
+            FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        FirestoreClass().loadUserData(this@SignInActivity)
+                    }
+                    else {
+                        Toast.makeText(
+                            this@SignInActivity,
+                            task.exception!!.message,
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                }
+        }
     }
 
     /**
-     * A function for actionBar Setup.
+     * A function to validate the entries of a user.
      */
-    private fun setupActionBar() {
-
-        setSupportActionBar(toolbar_sign_in_activity)
-
-        val actionBar = supportActionBar
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true)
-            actionBar.setHomeAsUpIndicator(R.drawable.ic_black_color_back_24dp)
+    private fun validateForm(email: String, password: String): Boolean {
+        return if (TextUtils.isEmpty(email)) {
+            showErrorSnackBar("Please enter email.")
+            false
         }
-
-        toolbar_sign_in_activity.setNavigationOnClickListener { onBackPressed() }
+        else if (TextUtils.isEmpty(password)) {
+            showErrorSnackBar("Please enter password.")
+            false
+        }
+        else {
+            true
+        }
     }
+
+    /**
+     * A function to get the user details from the firestore database after authentication.
+     */
+    fun signInSuccess(user: User) {
+        hideProgressDialog()
+
+        startActivity(Intent(this@SignInActivity, MainActivity::class.java))
+        this.finish()
+    }
+
 }
