@@ -48,4 +48,10 @@
     <string name="select_members">Select Members</string>
     <string name="due_date">Due Date</string>
     <string name="select_due_date">Select Due Date</string>
+
+    <!--TODO (Step 1: All the string values are added here.)-->
+    <!--START-->
+    <string name="delete_card">Delete Card</string>
+    <!--END-->
+
 </resources>
