@@ -1,12 +1,16 @@
 package com.projemanag.activities
 
+import android.content.Intent
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.WindowManager
-import androidx.appcompat.app.AppCompatActivity
+import android.widget.Toast
+import com.google.firebase.auth.FirebaseAuth
 import com.projemanag.R
 import kotlinx.android.synthetic.main.activity_sign_in.*
 
-class SignInActivity : AppCompatActivity() {
+// TODO (Step 1: Extend the BaseActivity instead of AppCompatActivity.)
+class SignInActivity : BaseActivity() {
     /**
      * This function is auto created by Android when the Activity Class is created.
      */
@@ -23,6 +27,13 @@ class SignInActivity : AppCompatActivity() {
         )
 
         setupActionBar()
+
+        // TODO(Step 4: Add click event for sign-in button and call the function to sign in.)
+        // START
+        btn_sign_in.setOnClickListener {
+            signInRegisteredUser()
+        }
+        // END
     }
 
     /**
@@ -40,4 +51,61 @@ class SignInActivity : AppCompatActivity() {
 
         toolbar_sign_in_activity.setNavigationOnClickListener { onBackPressed() }
     }
+
+    // TODO (Step 2: A function for Sign-In using the registered user using the email and password.)
+    // START
+    /**
+     * A function for Sign-In using the registered user using the email and password.
+     */
+    private fun signInRegisteredUser() {
+        // Here we get the text from editText and trim the space
+        val email: String = et_email.text.toString().trim { it <= ' ' }
+        val password: String = et_password.text.toString().trim { it <= ' ' }
+
+        if (validateForm(email, password)) {
+            // Show the progress dialog.
+            showProgressDialog(resources.getString(R.string.please_wait))
+
+            // Sign-In using FirebaseAuth
+            FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener { task ->
+                    hideProgressDialog()
+                    if (task.isSuccessful) {
+
+                        Toast.makeText(
+                            this@SignInActivity,
+                            "You have successfully signed in.",
+                            Toast.LENGTH_LONG
+                        ).show()
+
+                        startActivity(Intent(this@SignInActivity, MainActivity::class.java))
+                    } else {
+                        Toast.makeText(
+                            this@SignInActivity,
+                            task.exception!!.message,
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                }
+        }
+    }
+    // END
+
+    // TODO (Step 3: A function to validate the entries of a user.)
+    // START
+    /**
+     * A function to validate the entries of a user.
+     */
+    private fun validateForm(email: String, password: String): Boolean {
+        return if (TextUtils.isEmpty(email)) {
+            showErrorSnackBar("Please enter email.")
+            false
+        } else if (TextUtils.isEmpty(password)) {
+            showErrorSnackBar("Please enter password.")
+            false
+        } else {
+            true
+        }
+    }
+    // END
 }

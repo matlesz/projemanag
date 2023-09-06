@@ -52,14 +52,6 @@ class SignUpActivity : BaseActivity() {
         toolbar_sign_up_activity.setNavigationOnClickListener { onBackPressed() }
     }
 
-    // TODO (Step 1 : Here we will register a new user using firebase and we will see the entry in Firebase console.)
-    // START
-    // Before doing this you need to perform some steps in the Firebase Console.
-    // 1. Go to your project detail.
-    // 2. Click on the "Authentication" tab which is on the left side in the navigation bar under the "Develop" section.
-    // 3. In the Authentication Page, you will see the tab named “Sign-in method”. Click on it.
-    // 4. In the sign-in providers, enable the “Email/Password”.
-    // 5. Finally, Now you will be able to Register a new user using the Firebase.
     /**
      * A function to register a user to our app using the Firebase.
      * For more details visit: https://firebase.google.com/docs/auth/android/custom-auth
