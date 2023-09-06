@@ -30,7 +30,6 @@ class SplashActivity : AppCompatActivity() {
             Typeface.createFromAsset(assets, "carbon bl.ttf")
         tv_app_name.typeface = typeface
 
-        // TODO (Step 9: Here we will launch the Intro Screen after the splash screen using the handler. As using handler the splash screen will disappear after what we give to the handler.)
         // Adding the handler to after the a task after some delay.
         Handler().postDelayed({
             // Start the Intro Activity

@@ -1,14 +1,12 @@
 package com.projemanag
 
+import android.content.Intent
 import android.graphics.Typeface
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.WindowManager
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_intro.*
-import kotlinx.android.synthetic.main.activity_splash.*
 
-// TODO (Step 1: Add the Intro Activity.)
-// START
 class IntroActivity : AppCompatActivity() {
 
     /**
@@ -27,8 +25,16 @@ class IntroActivity : AppCompatActivity() {
         )
 
         val typeface: Typeface =
-                Typeface.createFromAsset(assets, "carbon bl.ttf")
+            Typeface.createFromAsset(assets, "carbon bl.ttf")
         tv_app_name_intro.typeface = typeface
+
+        // TODO (Step 7: Add a click event for Sign Up btn and launch the Sign Up Screen.)
+        // START
+        btn_sign_up_intro.setOnClickListener {
+
+            // Launch the sign up screen.
+            startActivity(Intent(this@IntroActivity, SignUpActivity::class.java))
+        }
+        // END
     }
 }
-// END
