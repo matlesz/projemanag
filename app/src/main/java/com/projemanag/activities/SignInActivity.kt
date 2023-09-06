@@ -9,7 +9,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.projemanag.R
 import kotlinx.android.synthetic.main.activity_sign_in.*
 
-// TODO (Step 1: Extend the BaseActivity instead of AppCompatActivity.)
 class SignInActivity : BaseActivity() {
     /**
      * This function is auto created by Android when the Activity Class is created.
@@ -28,12 +27,9 @@ class SignInActivity : BaseActivity() {
 
         setupActionBar()
 
-        // TODO(Step 4: Add click event for sign-in button and call the function to sign in.)
-        // START
         btn_sign_in.setOnClickListener {
             signInRegisteredUser()
         }
-        // END
     }
 
     /**
@@ -52,8 +48,6 @@ class SignInActivity : BaseActivity() {
         toolbar_sign_in_activity.setNavigationOnClickListener { onBackPressed() }
     }
 
-    // TODO (Step 2: A function for Sign-In using the registered user using the email and password.)
-    // START
     /**
      * A function for Sign-In using the registered user using the email and password.
      */
@@ -89,10 +83,7 @@ class SignInActivity : BaseActivity() {
                 }
         }
     }
-    // END
 
-    // TODO (Step 3: A function to validate the entries of a user.)
-    // START
     /**
      * A function to validate the entries of a user.
      */
@@ -107,5 +98,4 @@ class SignInActivity : BaseActivity() {
             true
         }
     }
-    // END
 }
