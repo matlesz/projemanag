@@ -1,12 +1,12 @@
-package com.projemanag
+package com.projemanag.activities
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.WindowManager
-import kotlinx.android.synthetic.main.activity_sign_up.*
+import androidx.appcompat.app.AppCompatActivity
+import com.projemanag.R
+import kotlinx.android.synthetic.main.activity_sign_in.*
 
-class SignUpActivity : AppCompatActivity() {
-
+class SignInActivity : AppCompatActivity() {
     /**
      * This function is auto created by Android when the Activity Class is created.
      */
@@ -14,7 +14,7 @@ class SignUpActivity : AppCompatActivity() {
         //This call the parent constructor
         super.onCreate(savedInstanceState)
         // This is used to align the xml view to this class
-        setContentView(R.layout.activity_sign_up)
+        setContentView(R.layout.activity_sign_in)
 
         // This is used to hide the status bar and make the splash screen as a full screen activity.
         window.setFlags(
@@ -30,7 +30,7 @@ class SignUpActivity : AppCompatActivity() {
      */
     private fun setupActionBar() {
 
-        setSupportActionBar(toolbar_sign_up_activity)
+        setSupportActionBar(toolbar_sign_in_activity)
 
         val actionBar = supportActionBar
         if (actionBar != null) {
@@ -38,6 +38,6 @@ class SignUpActivity : AppCompatActivity() {
             actionBar.setHomeAsUpIndicator(R.drawable.ic_black_color_back_24dp)
         }
 
-        toolbar_sign_up_activity.setNavigationOnClickListener { onBackPressed() }
+        toolbar_sign_in_activity.setNavigationOnClickListener { onBackPressed() }
     }
 }

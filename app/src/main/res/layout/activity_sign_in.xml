@@ -1,7 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--TODO (Step 3: Design the Sign In screen layout as per our requirement.)-->
-<!--START-->
-<!--The values for the drawable items, dimen, string and color values are added in their respective folders and files.-->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -9,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/ic_background"
     android:orientation="vertical"
-    tools:context=".SignInActivity">
+    tools:context=".activities.SignInActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_sign_in_activity"
@@ -109,4 +106,3 @@
         </androidx.cardview.widget.CardView>
     </LinearLayout>
 </LinearLayout>
-    <!--END-->
