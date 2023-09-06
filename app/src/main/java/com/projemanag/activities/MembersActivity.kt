@@ -1,6 +1,11 @@
 package com.projemanag.activities
 
+import android.app.Dialog
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.projemanag.R
 import com.projemanag.adapters.MemberListItemsAdapter
@@ -9,6 +14,7 @@ import com.projemanag.model.Board
 import com.projemanag.model.User
 import com.projemanag.utils.Constants
 import kotlinx.android.synthetic.main.activity_members.*
+import kotlinx.android.synthetic.main.dialog_search_member.*
 
 class MembersActivity : BaseActivity() {
 
@@ -25,15 +31,12 @@ class MembersActivity : BaseActivity() {
 
         setupActionBar()
 
-        // TODO (Step 5: Get the members list details from the database.)
-        // START
         // Show the progress dialog.
         showProgressDialog(resources.getString(R.string.please_wait))
         FirestoreClass().getAssignedMembersListDetails(
             this@MembersActivity,
             mBoardDetails.assignedTo
         )
-        // END
     }
 
     /**
@@ -52,8 +55,30 @@ class MembersActivity : BaseActivity() {
         toolbar_members_activity.setNavigationOnClickListener { onBackPressed() }
     }
 
-    // TODO (Step 2: Create a function to setup assigned members list into recyclerview.)
+    // TODO (Step 3: Inflate the menu file for adding the member and also add the onOptionItemSelected function.)
     // START
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        // Inflate the menu to use in the action bar
+        menuInflater.inflate(R.menu.menu_add_member, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Handle presses on the action bar menu items
+        when (item.itemId) {
+            R.id.action_add_member -> {
+
+                // TODO (Step 7: Call the dialogSearchMember function here.)
+                // START
+                dialogSearchMember()
+                // END
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+    // END
+
     /**
      * A function to setup assigned members list into recyclerview.
      */
@@ -66,6 +91,38 @@ class MembersActivity : BaseActivity() {
 
         val adapter = MemberListItemsAdapter(this@MembersActivity, list)
         rv_members_list.adapter = adapter
+    }
+
+
+    // TODO (Step 6: Initialize the dialog for searching member from Database.)
+    // START
+    /**
+     * Method is used to show the Custom Dialog.
+     */
+    private fun dialogSearchMember() {
+        val dialog = Dialog(this)
+        /*Set the screen content from a layout resource.
+    The resource will be inflated, adding all top-level views to the screen.*/
+        dialog.setContentView(R.layout.dialog_search_member)
+        dialog.tv_add.setOnClickListener(View.OnClickListener {
+
+            val email = dialog.et_email_search_member.text.toString()
+
+            if (email.isNotEmpty()) {
+                dialog.dismiss()
+            } else {
+                Toast.makeText(
+                    this@MembersActivity,
+                    "Please enter members email address.",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        })
+        dialog.tv_cancel.setOnClickListener(View.OnClickListener {
+            dialog.dismiss()
+        })
+        //Start the dialog and display it on screen.
+        dialog.show()
     }
     // END
 }

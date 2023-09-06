@@ -10,8 +10,6 @@ import com.projemanag.R
 import com.projemanag.model.User
 import kotlinx.android.synthetic.main.item_member.view.*
 
-// TODO (Step 1: Create an adapter class for Member Items.)
-// START
 open class MemberListItemsAdapter(
     private val context: Context,
     private var list: ArrayList<User>
@@ -72,4 +70,3 @@ open class MemberListItemsAdapter(
      */
     class MyViewHolder(view: View) : RecyclerView.ViewHolder(view)
 }
-// END

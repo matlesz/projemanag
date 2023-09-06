@@ -22,10 +22,8 @@ object Constants {
     const val ASSIGNED_TO: String = "assignedTo"
     const val DOCUMENT_ID: String = "documentId"
     const val TASK_LIST: String = "taskList"
-    // TODO (Step 3: Add field name as a constant which we will be using for getting the list of user details from the database.)
-    // START
     const val ID: String = "id"
-    // END
+    const val EMAIL: String = "email"
 
     const val BOARD_DETAIL: String = "board_detail"
 
