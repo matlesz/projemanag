@@ -224,6 +224,40 @@ class FirestoreClass {
             }
     }
 
+    // TODO (Step 4: Create a function for getting the list of users details from the database.)
+    // START
+    /**
+     * A function to get the list of user details which is assigned to the board.
+     */
+    fun getAssignedMembersListDetails(activity: MembersActivity, assignedTo: ArrayList<String>) {
+
+        mFireStore.collection(Constants.USERS) // Collection Name
+            .whereIn(Constants.ID, assignedTo) // Here the database field name and the id's of the members.
+            .get()
+            .addOnSuccessListener { document ->
+                Log.e(activity.javaClass.simpleName, document.documents.toString())
+
+                val usersList: ArrayList<User> = ArrayList()
+
+                for (i in document.documents) {
+                    // Convert all the document snapshot to the object using the data model class.
+                    val user = i.toObject(User::class.java)!!
+                    usersList.add(user)
+                }
+
+                activity.setupMembersList(usersList)
+            }
+            .addOnFailureListener { e ->
+                activity.hideProgressDialog()
+                Log.e(
+                    activity.javaClass.simpleName,
+                    "Error while creating a board.",
+                    e
+                )
+            }
+    }
+    // END
+
     /**
      * A function for getting the user id of current logged user.
      */

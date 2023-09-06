@@ -62,12 +62,9 @@ class TaskListActivity : BaseActivity() {
         when (item.itemId) {
             R.id.action_members -> {
 
-                // TODO (Step 2: Pass the board details through intent.)
-                // START
                 val intent = Intent(this@TaskListActivity, MembersActivity::class.java)
                 intent.putExtra(Constants.BOARD_DETAIL, mBoardDetails)
                 startActivity(intent)
-                // END
                 return true
             }
         }
