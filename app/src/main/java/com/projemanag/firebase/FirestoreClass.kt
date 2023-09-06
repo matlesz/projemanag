@@ -180,8 +180,6 @@ class FirestoreClass {
             }
     }
 
-    // TODO (Step 9: Create a function to get the Board Details.)
-    // START
     /**
      * A function to get the Board Details.
      */
@@ -200,7 +198,6 @@ class FirestoreClass {
                 Log.e(activity.javaClass.simpleName, "Error while creating a board.", e)
             }
     }
-    // END
 
     /**
      * A function for getting the user id of current logged user.

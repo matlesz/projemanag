@@ -3,8 +3,6 @@ package com.projemanag.model
 import android.os.Parcel
 import android.os.Parcelable
 
-// TODO (Step 1: Create a data model class for Task.)
-// START
 data class Task(
     var title: String = "",
     val createdBy: String = ""
@@ -29,4 +27,3 @@ data class Task(
         }
     }
 }
-// END

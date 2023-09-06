@@ -3,8 +3,10 @@ package com.projemanag.activities
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.projemanag.R
+import com.projemanag.adapters.TaskListItemsAdapter
 import com.projemanag.firebase.FirestoreClass
 import com.projemanag.model.Board
+import com.projemanag.model.Task
 import com.projemanag.utils.Constants
 import kotlinx.android.synthetic.main.activity_task_list.*
 
@@ -14,22 +16,16 @@ class TaskListActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_task_list)
 
-        // TODO (Step 5: Get the board documentId through intent.)
         var boardDocumentId = ""
         if (intent.hasExtra(Constants.DOCUMENT_ID)) {
             boardDocumentId = intent.getStringExtra(Constants.DOCUMENT_ID)!!
         }
 
-        // TODO (Step 10: Call the function to get the Board Details.)
-        // START
         // Show the progress dialog.
         showProgressDialog(resources.getString(R.string.please_wait))
         FirestoreClass().getBoardDetails(this@TaskListActivity, boardDocumentId)
-        // END
     }
 
-    // TODO (Step 6: Create a function to setup action bar.)
-    // START
     /**
      * A function to setup action bar
      */
@@ -46,10 +42,7 @@ class TaskListActivity : BaseActivity() {
 
         toolbar_task_list_activity.setNavigationOnClickListener { onBackPressed() }
     }
-    // END
 
-    // TODO (Step 7: Create a function to get the result of Board Detail.)
-    // START
     /**
      * A function to get the result of Board Detail.
      */
@@ -57,11 +50,22 @@ class TaskListActivity : BaseActivity() {
 
         hideProgressDialog()
 
-        // TODO (Step 8: call the setup actionbar function.)
-        // START
         // Call the function to setup action bar.
         setupActionBar(board.name)
+
+        // TODO (Step 7: Setup the task list view using the adapter class and task list of the board.)
+        // START
+        // Here we are appending an item view for adding a list task list for the board.
+        val addTaskList = Task(resources.getString(R.string.add_list))
+        board.taskList.add(addTaskList)
+
+        rv_task_list.layoutManager =
+            LinearLayoutManager(this@TaskListActivity, LinearLayoutManager.HORIZONTAL, false)
+        rv_task_list.setHasFixedSize(true)
+
+        // Create an instance of TaskListItemsAdapter and pass the task list to it.
+        val adapter = TaskListItemsAdapter(this@TaskListActivity, board.taskList)
+        rv_task_list.adapter = adapter // Attach the adapter to the recyclerView.
         // END
     }
-    // END
 }

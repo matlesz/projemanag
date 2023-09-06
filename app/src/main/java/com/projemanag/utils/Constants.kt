@@ -20,10 +20,7 @@ object Constants {
     const val NAME: String = "name"
     const val MOBILE: String = "mobile"
     const val ASSIGNED_TO: String = "assignedTo"
-    // TODO (Step 3: Add constant for DocumentId)
-    // START
     const val DOCUMENT_ID: String = "documentId"
-    // END
 
     //A unique code for asking the Read Storage Permission using this we will be check and identify in the method onRequestPermissionsResult
     const val READ_STORAGE_PERMISSION_CODE = 1

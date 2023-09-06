@@ -3,8 +3,6 @@ package com.projemanag.model
 import android.os.Parcel
 import android.os.Parcelable
 
-// TODO (Step 2: Add a parameter for TaskList in the Board Item.)
-// START
 data class Board(
     val name: String = "",
     val image: String = "",
@@ -41,4 +39,3 @@ data class Board(
         }
     }
 }
-// END
