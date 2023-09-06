@@ -25,8 +25,8 @@ class SplashActivity : AppCompatActivity() {
         // This is used to hide the status bar and make the splash screen as a full screen activity.
         // START
         window.setFlags(
-                WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN
+            WindowManager.LayoutParams.FLAG_FULLSCREEN,
+            WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
         // END
 
@@ -36,7 +36,7 @@ class SplashActivity : AppCompatActivity() {
         // START
         // This is used to get the file from the assets folder and set it to the title textView.
         val typeface: Typeface =
-                Typeface.createFromAsset(assets, "carbon bl.ttf")
+            Typeface.createFromAsset(assets, "carbon bl.ttf")
         tv_app_name.typeface = typeface
         // END
     }
