@@ -61,6 +61,8 @@ class FirestoreClass {
                 // Here we have received the document snapshot which is converted into the User Data model object.
                 val loggedInUser = document.toObject(User::class.java)!!
 
+                // TODO(Step 3: Modify the parameter and check the instance of activity and send the success result to it.)
+                // START
                 // Here call a function of base activity for transferring the result to it.
                 when (activity) {
                     is SignInActivity -> {
@@ -69,9 +71,15 @@ class FirestoreClass {
                     is MainActivity -> {
                         activity.updateNavigationUserDetails(loggedInUser)
                     }
+                    is MyProfileActivity -> {
+                        activity.setUserDataInUI(loggedInUser)
+                    }
                 }
+                // END
             }
             .addOnFailureListener { e ->
+                // TODO(Step 4: Hide the progress dialog in failure function based on instance of activity.)
+                // START
                 // Here call a function of base activity for transferring the result to it.
                 when (activity) {
                     is SignInActivity -> {
@@ -80,7 +88,11 @@ class FirestoreClass {
                     is MainActivity -> {
                         activity.hideProgressDialog()
                     }
+                    is MyProfileActivity -> {
+                        activity.hideProgressDialog()
+                    }
                 }
+                // END
                 Log.e(
                     activity.javaClass.simpleName,
                     "Error while getting loggedIn user details",

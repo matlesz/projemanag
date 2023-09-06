@@ -51,7 +51,6 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     override fun onNavigationItemSelected(menuItem: MenuItem): Boolean {
         when (menuItem.itemId) {
             R.id.nav_my_profile -> {
-                // TODO (Step 9: Launch the MyProfileActivity Screen.)
                 startActivity(Intent(this@MainActivity, MyProfileActivity::class.java))
             }
 
