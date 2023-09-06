@@ -5,20 +5,28 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.view.GravityCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.projemanag.R
+import com.projemanag.adapters.BoardItemsAdapter
 import com.projemanag.firebase.FirestoreClass
+import com.projemanag.model.Board
 import com.projemanag.model.User
 import com.projemanag.utils.Constants
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
+import kotlinx.android.synthetic.main.content_main.*
 
 class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener {
+
+    // A global variable for User Name
+    private lateinit var mUserName: String
 
     /**
      * This function is auto created by Android when the Activity Class is created.
@@ -35,9 +43,19 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         // Assign the NavigationView.OnNavigationItemSelectedListener to navigation view.
         nav_view.setNavigationItemSelectedListener(this)
 
-
         // Get the current logged in user details.
-        FirestoreClass().loadUserData(this@MainActivity)
+        // Show the progress dialog.
+        showProgressDialog(resources.getString(R.string.please_wait))
+        FirestoreClass().loadUserData(this@MainActivity, true)
+
+        fab_create_board.setOnClickListener {
+            val intent = Intent(this@MainActivity, CreateBoardActivity::class.java)
+            intent.putExtra(Constants.NAME, mUserName)
+            // TODO (Step 2: Here now pass the unique code for StartActivityForResult.)
+            // START
+            startActivityForResult(intent, CREATE_BOARD_REQUEST_CODE)
+            // END
+        }
     }
 
     override fun onBackPressed() {
@@ -53,10 +71,10 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         when (menuItem.itemId) {
             R.id.nav_my_profile -> {
 
-                // TODO (Step 2: Launch the my profile activity for Result.)
-                // START
-                startActivityForResult(Intent(this@MainActivity, MyProfileActivity::class.java), MY_PROFILE_REQUEST_CODE)
-                // END
+                startActivityForResult(
+                    Intent(this@MainActivity, MyProfileActivity::class.java),
+                    MY_PROFILE_REQUEST_CODE
+                )
             }
 
             R.id.nav_sign_out -> {
@@ -74,21 +92,28 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         return true
     }
 
-    // TODO (Step 4: Add the onActivityResult function and check the result of the activity for which we expect the result.)
-    // START
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (resultCode == Activity.RESULT_OK
-                && requestCode == MY_PROFILE_REQUEST_CODE
+            && requestCode == MY_PROFILE_REQUEST_CODE
         ) {
             // Get the user updated details.
             FirestoreClass().loadUserData(this@MainActivity)
-        } else {
+        }
+        // TODO (Step 4: Here if the result is OK get the updated boards list.)
+        // START
+        else if (resultCode == Activity.RESULT_OK
+                && requestCode == CREATE_BOARD_REQUEST_CODE
+        ) {
+            // Get the latest boards list.
+            FirestoreClass().getBoardsList(this@MainActivity)
+        }
+        // END
+        else {
             Log.e("Cancelled", "Cancelled")
         }
     }
-    // END
 
     /**
      * A function to setup action bar
@@ -118,7 +143,12 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     /**
      * A function to get the current user details from firebase.
      */
-    fun updateNavigationUserDetails(user: User) {
+    fun updateNavigationUserDetails(user: User, readBoardsList: Boolean) {
+
+        hideProgressDialog()
+
+        mUserName = user.name
+
         // The instance of the header view of the navigation view.
         val headerView = nav_view.getHeaderView(0)
 
@@ -127,26 +157,66 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
         // Load the user image in the ImageView.
         Glide
-                .with(this@MainActivity)
-                .load(user.image) // URL of the image
-                .centerCrop() // Scale type of the image.
-                .placeholder(R.drawable.ic_user_place_holder) // A default place holder
-                .into(navUserImage) // the view in which the image will be loaded.
+            .with(this@MainActivity)
+            .load(user.image) // URL of the image
+            .centerCrop() // Scale type of the image.
+            .placeholder(R.drawable.ic_user_place_holder) // A default place holder
+            .into(navUserImage) // the view in which the image will be loaded.
 
         // The instance of the user name TextView of the navigation view.
         val navUsername = headerView.findViewById<TextView>(R.id.tv_username)
         // Set the user name
         navUsername.text = user.name
+
+        if (readBoardsList) {
+            // Show the progress dialog.
+            showProgressDialog(resources.getString(R.string.please_wait))
+            FirestoreClass().getBoardsList(this@MainActivity)
+        }
     }
 
-    // TODO (Step 1: Create a companion object and a constant variable for My profile Screen result.)
-    // START
+    /**
+     * A function to populate the result of BOARDS list in the UI i.e in the recyclerView.
+     */
+    fun populateBoardsListToUI(boardsList: ArrayList<Board>) {
+
+        hideProgressDialog()
+
+        if (boardsList.size > 0) {
+
+            rv_boards_list.visibility = View.VISIBLE
+            tv_no_boards_available.visibility = View.GONE
+
+            rv_boards_list.layoutManager = LinearLayoutManager(this@MainActivity)
+            rv_boards_list.setHasFixedSize(true)
+
+            // Create an instance of BoardItemsAdapter and pass the boardList to it.
+            val adapter = BoardItemsAdapter(this@MainActivity, boardsList)
+            rv_boards_list.adapter = adapter // Attach the adapter to the recyclerView.
+
+            // TODO (Step 9: Add click event for boards item and launch the TaskListActivity)
+            // START
+            adapter.setOnClickListener(object :
+                BoardItemsAdapter.OnClickListener {
+                override fun onClick(position: Int, model: Board) {
+                    startActivity(Intent(this@MainActivity, TaskListActivity::class.java))
+                }
+            })
+            // END
+        } else {
+            rv_boards_list.visibility = View.GONE
+            tv_no_boards_available.visibility = View.VISIBLE
+        }
+    }
+
     /**
      * A companion object to declare the constants.
      */
     companion object {
         //A unique code for starting the activity for result
         const val MY_PROFILE_REQUEST_CODE: Int = 11
+
+        // TODO (Step 1: Add a unique code for starting the create board activity for result)
+        const val CREATE_BOARD_REQUEST_CODE: Int = 12
     }
-    // END
 }
